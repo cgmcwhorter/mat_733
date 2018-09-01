@@ -1,0 +1,203 @@
+% !TEX root = ../../commutative_algebra.tex
+
+\newpage
+\section{Valuation Rings}
+
+\begin{dfn}[Ordered Group]
+An abelian group $G$ is called an ordered group if it carries a total ordering $\leq$ such that if $x \leq y$, then $x+z \leq y+z$ for all $x,y,z \in G$. 
+\end{dfn}
+
+\begin{dfn}[Valuation]
+Let $K$ be a field and $G$ an abelian ordered group. Adjoin a symbol $\infty$ to $G$ with $x \leq \infty$ for all $x \in G$ with the property that $\infty+\infty=\infty$. A function $|nu: K \to G \cup \{\infty\}$ is a valuation of $K$ if 
+\begin{enumerate}[(i)]
+\item $v(xy)=v(x)+v(y)$
+\item $v(x+y) \geq \min(v(x),v(y))$
+\item $v(x)= \infty$ if and only if $x=0$.
+\end{enumerate}
+If $\nu$ is a valuation, $\nu|_{K^\times}: K^\times \to G$ is a group homomorphism. The valuation group of a valuation $\nu: K \to G \cup \{\infty\}$ is the image of $K^\times$ in $G$. The valuation ring of $\nu$ is $R\nu = \{x \in K \;|\; \nu(x) \geq 0 \in G\}$. 
+\end{dfn}
+
+\begin{rem}
+One should check that $\nu(1)=0$.
+\end{rem}
+
+\begin{ex}
+Let $K=\Q$ and $p \in \Z$ be a prime. Define $\nu: \Q \to \Z$ by
+\[
+\nu\left(\frac{a}{b}\right)=
+\begin{cases}
+\infty, & \text{if } a=0 \\
+0, &  \text{if } p \nmid a, p \nmid b \\
+n, &  \text{if } p^n \mid a, p^{n+1} \nmid a \\
+-n, &  \text{if } p^n \mid b, p^{n+1} \nmid b
+\end{cases}
+\]
+This is the p-adic valuation on $\Q$, e.g. if $p=3$, $\nu(5/27)=-3$, $\nu(2/5)=0$, $\nu(81)=4$. One should check $\nu(xy)=\nu(x)+\nu(y), \nu(x+y) \geq \min\{\nu(x),\nu(y)\}$. Since $\nu(\Q^\times)=\Z$, the valuation group (value group) is $\Z$. 
+\end{ex}
+
+\begin{dfn}[Discrete Valuation]
+A discrete valuation is one with valuation group isomorphic to $\Z$. The valuation ring is then 
+\[
+\begin{split}
+R\nu&= \left\{ \frac{a}{b} \in \Q \; \bigg| \; \nu\left(\frac{a}{b}\right) \geq 0 \right\} \\
+&=\left\{ \frac{a}{b} \in \Q \; \bigg| \; \gcd(a,b)=1, p \nmid b \right\} \\
+&= \Z_{(p)} 
+\end{split}
+\]
+\end{dfn}
+
+\begin{ex}
+If $K$ is any field and $t$ is an indeterminate, define $|nu: K(t) \to \Z[t]$ by
+\[
+\nu\left( \frac{p(t)}{q(t)} \right)=
+\begin{cases}
+\infty, & \text{if } p(t)=0 \\
+0, & t \nmid p, t \nmid q \\
+n, & t^n || p(t) \\
+-n, & t^n || q(t)
+\end{cases}
+\]
+Then
+\[
+R\nu=\left\{ \frac{p}{q} \bigg| t \nmid q(t) \right\} = K[t]_{(t)}
+\]
+\end{ex}
+
+\begin{dfn}[Valuation Ring]
+Let $D$ be a domain with fraction field $K$. We say that $D$ is a valuation ring if for every $x \in K^\times$, either $x \in D$ or $x^{-1} \in D$. 
+\end{dfn}
+
+The following property justifies the name.
+
+\begin{prop}
+A domain $D$ is a valuation ring if and only if $D=R\nu$ for some valuation $\nu$ on $K$.
+\end{prop}
+
+\noindent Proof: For the reverse direction, if $D=R\nu\{x \in K \;|\; \nu(x) \geq 0\}$ and $x \notin D$, then $\nu(x)<0$. But $0=\nu(1)=\nu(xx^{-1})=\nu(x)+\nu(x^{-1})$ so $\nu(x^{-1}) \geq 0$ and $x^{-1} \in D$. 
+
+We sketch the reverse direction. Let $G=K^\times/D^\times$ (a quotient of groups of units). Put an order on $G$ by declaring $\ov{d} \in K^\times/D^\times$ to be positive so that $\ov{x} > \ov{y}$ if and only if $\ov{x-y} \in D$. One need only check that this works. \qed \\
+
+\begin{thmm}
+Let $V$ be a valuation ring. Then
+\begin{enumerate}
+\item $V$ is local
+\item $V$ is integrally closed
+\item For any $a,b \in V$, either $(a) \subseteq (b)$ or $(a) \supseteq (b)$.
+\item Every finitely generated ideal of $V$ is principal. 
+\end{enumerate}
+\end{thmm}
+
+\noindent Proof:
+\begin{enumerate}[(i)]
+\item We know that for any $x \in K$, $\nu(x)+\nu(x^{-1})=0$. So $x \in D$ is a unit if and only if $x,x^{-1} \in D$ if and only if $\nu(x),\nu(x^{-1}) \geq 0$ if and only if $\nu(x)=0$. So the non-units of $D$ are those $x \in D$ with $\nu(x)>0$. This is an ideal of $D$ as if $\nu(x)>0$ and $\nu(r) \geq 0$, we have
+\[
+\begin{split}
+\nu(rx)&=\nu(r)+\nu(x) >0 \\
+\nu(x+y)&\geq \min\{\nu(x),\nu(y)\}>0
+\end{split}
+\]
+so the non-units form an ideal. 
+
+\item Suppose that $x \in K$ is integral over $V$. Then $x^n+a_1x^{n-1}+\cdots+a_n=0$ for some $a_1,\cdots,a_n \in V$. If $x^{-1} \notin V$, then $x \in V$ and we are done. So assume $x^{-1} \in V$. Then $x^{-(n-1)} \cdot \text{poly in }x=0$ so that $x= \sim(a_1+a_2x^{-1}+\cdots+a_nx^{n-1})= \approx \in V$ so $x \in V$. 
+
+\item Let $a,b \in V$. Then $ab^{-1} \in K$ so that either $ab^{-1} \in V$ or $a^{-1}b \in V$. If $ab^{-1} \in V$, then $ab^{-1}=v$ so $a=bv$ which says that $(a) \subseteq (b)$. Otherwise, $(b) \subseteq (a)$. 
+
+\item We proceed by induction on the number of generators for $I=(x_1,\cdots,x_n)$. The base case is trivial. By (iii), either $(x_n) \subseteq (x_{n-1})$ or $(x_n) \supseteq (x_{n-1})$. Either way, we are able to reduce the number of generators since $I=(x_1,\cdots,x_{n-1})$ or $I=(x_1,\cdots,x_{n-2},x_n)$. 
+\end{enumerate}
+\qed \\
+
+\begin{dfn}[Discrete Valuation Ring]
+A discrete valuation ring (DVR) is the valuation ring of a discrete valuation.
+\end{dfn}
+
+\begin{ex}
+$\Z_{(p)}$ and $K[t]_{(t)}$ are both DVRs. 
+\end{ex}
+
+\begin{prop}
+A DVR is noetherian. Hence, DVRs are a local PID. 
+\end{prop}
+
+\noindent Proof: Let $D$ be a DVR and $\nu: K \to \Z\cup\{\infty\}$ its discrete valuation. We will show that $I_k=\{x \in D \;|\; \nu(x) \geq k\}$ are the \emph{only} ideals of $D$ and in particular any chain of ideals is a subchain of
+\[
+\cdots \subseteq I_{k+1} \subseteq I_k \subseteq \cdots \subseteq I_1 \subseteq I_0 = D
+\]
+and terminates. 
+
+If $\nu(x) \geq \nu(y)$, then $\nu(x)-\nu(y) \geq 0$ so $\nu(xy^{-1}) \geq 0$ and $xy^{-1} \in D$ with $(x) \subseteq (y)$ as before. So if $I$ is any ideal of $V$, set $k=\min\{\nu(y) \;|\; y \in I\}$. By the above, any element $x$ of value at least $k$ is contained in $(y)$, where $y$ has value $k$, so is in $I$. So $I_k \subseteq I \subseteq I_k$ and therefore $I=I_k$. Furthermore, $I_{k+1} \subseteq I_k$. \qed \\
+
+\begin{cor}
+A DVR is a local PID of dimension one and has totally ordered ideals $I_k$. 
+\end{cor}
+
+\begin{thmm}
+The following are equivalent for a noetherian local domain $(R,\fm)$:
+\begin{enumerate}[(i)]
+\item $R$ is a DVR
+\item $R$ is a valuation ring
+\item $R$ is a PID
+\item $R$ is normal and $\dim R=1$
+\item $\fm=(t)$ is principal
+\item $R$ is a regular local ring of dimension 1
+\item There is a $t \in R$ such that every ideal is of the form $(t^n)$
+\item Every ideal is free as an $R$-module.
+\end{enumerate}
+\end{thmm}
+
+\noindent Proof: The main barriers are (iv) implies (v) and (vi) implies (vii). 
+\begin{enumerate}
+\item[(i) $\to$ (ii)] This is simple to see.
+\item[(ii) $\to$ (iii)] In a noetherian valuation ring, every ideal is principal.
+\item[(iii) $\to$ (iv)] A PID is a UFD which is normal. Note that PIDs have dimension 1.
+\item[(iv) $\to$ (v)] Choose a nonzero $a \in R$. Since $R$ is a local domain with dimension 1, $R$ has exactly two primes: $(0)$ and $\fm$. So $(a)$ is $\fm$-primary. Therefore, we have $\sqrt{(a)}=\fm$. Then there is a $n$ such that $\fm^n \subseteq (a)$ and $\fm^{n-1} \not\subseteq (a)$. Choose any $b \in \fm^{n-1} \setminus (a)$ and set $x=ab^{-1}=\frac{a}{b} \in K$. Note that $x^{-1} \notin R$ as if $ba^{-1} \in R$ then $ba^{-1}=r$ so $b=ar \in (a)$. We claim that $x^{-1} \fm =R$. This will show that $\fm=Rx$ and $x=1\cdot x \in \fm \subseteq R$.
+
+To prove the claim, let $y \in \fm$. Then $x^{-1}y=\frac{b}{a}y=\frac{by}{a}$ and $by \in \fm^{n-1}\cdot \fm=\fm^n \subseteq (a)$ so that $y \in Y$. This shows $\fm \subseteq Rx$. Now since $x^{-1}\fm$ is an ideal of $R$, either $x^{-1}\fm=R$ or $x^{-1}\fm \subseteq \fm$. If $x^{-1}\fm \subseteq \fm$. But recall that $u \in K$ is integral over $R$ if and only if there is a faithful $R[u]$-module $M$ which is finitely generated over $R$. Take $u=x^{-1}$ and $M=m$. Then $uM \leq M$ so $M$ is an $R[u]$-module which is finitely generated over $R$ since $R$ is noetherian and it is faithful since $R$ is a domain. But $R$ is normal so $x^{-1} \in R$. 
+
+\item[(v) $\to$ (vi)] Recall $R$ is a regular local ring if $\dim R=d$ and $\fm$ is $d$-generated
+
+\item[(vi) $\to$ (vii)]  Suppose $\fm=(t)$ and $I$ is an nonzero ideal. If $I=R$, then $I=(t^0)$. If not, then $I \subseteq \fm$. By Krull's Intersection Theorem, $\bigcap \fm^n=(0)$ since $I \neq 0$, there is a $n$ such that $I \subseteq \fm^n$ and $I \not\subseteq \fm^{n+1}$ so that $I\subseteq (t^n)$ and $I \not\subseteq (t^{n+1})$. We claim that $I=(t^n)$. We have already demonstrated $\subseteq$. So take $a \in I \setminus (t^{n+1})$. Then $a \in I \subseteq (t^n)$. Then $a=rt^n$. We cannot have $r \in \fm$ since then $a \in \fm t^n=\fm^{n+1}$ so $r$ is a unit. Hence, $t^n=r^{-1}a \in (a) \subseteq I$. 
+
+\item[(vii) $\to$ (i)] Define a valuation on $R$ by $\nu(y)=\max\{n\;|\; y \in (t^n)\}$ and $\nu(0)=\infty$. It is routine to verify that this is a valuation so that $R$ is a DVR.
+
+\item[(vii) $\to$ (viii) $\to$ (iii)] Recall an ideal $I$ is free if and only if it is principal and generated by a nonzerodivisor. Since $R$ is a domain, there are no zerodivisors.  
+\end{enumerate}
+\qed \\
+
+\begin{cor}
+Let $R$ be an integrally closed noetherian domain. Then $Rp$ is a DVR for all height-one primes $p \in \spec R$.
+\end{cor}
+
+\noindent Proof: $Rp$ is local, noetherian, and a domain. Then $\dim=\htt p=1$ so that $Rp$ is a DVR. \qed \\
+
+\begin{ex}
+$\Z_{(p)}, \hat{\Z}_{(p)}, k[t]_{(t)}, k[[t]], k[t]_{(f)}$ for $f \neq 0$ are all DVRs. 
+\end{ex}
+
+\begin{dfn}
+A ring $R$ satisfies the condition $(R_k)$ if it is regular at height $k$-primes, i.e. $Rp$ is a regular local ring for all $p \in \spec R$ with $\htt p \leq k$. 
+\end{dfn}
+
+\begin{cor}
+A normal noetherian domain satisfies $(R_1)$.
+\end{cor}
+
+\noindent Proof: If $\htt p=1$ we are done and if $\htt p=0$ then $p=(0)$ so that $Rp$ is a field. \qed \\
+
+\begin{dfn}[Dedekind Domain]
+A noetherian normal domain of dimension 1 (not necessarily local) is called a Dedekind domain. Equivalently, a noetherian domain $R$ is a Dedekind domain if and only if $R_\fm$ is a DVR for all maximal ideals $\fm$.
+\end{dfn}
+
+\begin{ex}
+$\Z$ is a Dedekind domain (as is any PID). $k[t]_{(t)}, k[[t]]$ are Dedekind domains (as are any DVRs). $\Z[\sqrt{5}]$. 
+\end{ex}
+
+\begin{thmm}
+Let $R$ be a Dedekind domain. Then every nonzero ideal $I$ of $R$ can be written uniquely as a product of powers of prime ideals: $I=p_1^{a_1}\cdots p_n^{an}$ (so primary decomposition works with powers of primes).
+\end{thmm}
+
+\begin{thmm}
+Let $R$ be a noetherian domain which is not a field. Then $R$ is a Dedekind domain if and only if every ideal of $R$ is projective. 
+\end{thmm}
+
+
+\LARGE{Now for depth}

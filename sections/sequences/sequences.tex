@@ -1,0 +1,608 @@
+% !TEX root = ../../commutative_algebra.tex
+
+\newpage
+
+\section{Regular Sequences}
+
+\begin{dfn}[$M$-regular]
+Let $R$ be a ring and $_R M$. An element $x \in R$ is called $M$-regular (or regular on $M$) if 
+\begin{enumerate}[(i)]
+\item $x$ is a nonzero divisor on $M$ (if $xm=0$ then $m=0$) 
+\item $xM \neq M$
+\end{enumerate}
+\end{dfn}
+
+\begin{dfn}[$M$-sequences]
+A sequence of elements $x_1,\cdots,x_n \in R$ are called a $M$-regular sequence (or regular sequence or $M$-sequence) if
+\begin{enumerate}[(i)]
+\item $x_i$ is a nonzerodivisor on $M/(x_{i-1},\cdots,x_1)M$ for $i=1,2,\cdots,n$
+\item $(x_1,\cdots,x_n)M \neq M$
+\end{enumerate}
+\end{dfn}
+
+\begin{rem} 
+We need observe a few things:
+\begin{enumerate}[(i)]
+\item In each case above, (ii) is some kind of nondegeneracy case (to rule out units). 
+\item Write nonzerodivisor, non-zero-divisor, non-zerodivisor but never nonzero-divisor or non-zero divisor. 
+\item We know that $x \in \text{rad}$ then $xM \neq M$ by NAK. 
+\item If $R$ is noetherian and $M$ finitely generated, then we know that the zero divisors of $M$ are the union of the associated primes of $M$ so that $x$ is regular on $M$ if $x \in \rad R$ and $x$ is not in any associated prime. 
+\end{enumerate}
+\end{rem}
+
+\begin{ex}
+We have a few introductory examples:
+\begin{enumerate}[(i)]
+\item Let $S$ be a noetherian ring and set $R=S[x_1,\cdots,x_n]$. Then $x_1,\cdots,x_n$ is a $R$-regular sequence.
+\item Let $R=\Z[x]$, then $\{x,3\}$ is a regular sequence. Note that $1 \notin (x,3)$ and $x$ is a nonzerodivisor in $\Z[x]$ as well as $3$ is a nonzerodivisor on $\Z[x]/x\Z[x]=\Z$.
+\item $R=k[x,y]/(xy-uv)$. We claim $\{x,y,u-v\}$ is a maximal regular sequence, i.e. a regular sequence which cannot be extended. We know that $xy-uv$ is irreducible in $k[x,y,u,v]$, hence it is prime. But then $R$ is a domain. But then $x$ is a nonzerodivisor 
+\[
+R'=R/(x)=k[x,y,u,v]/(xy-uv,x) \cong k[y,u,v]/(uv)
+\]
+Clearly, $y$ is a nonzerodivisor on $R'$.
+\[
+R''=R'/(y)=k[y,u,v]/(uv,y) \cong k[u,v]/(uv)
+\]
+We know the zero divisors of $R''$ are the union of the associated primes. But we have $(0)=(u) \cap (v)$ so the associated primes of $R''$ are $\{(u),(v)\}$ and $u-v$ is in neither. But then $u-v$ is a nonzerodivisor on $R''$. Finally, $1 \notin (x,y,u-v)$ in $R$. 
+
+\item Notice for the previous examples, the order of the sequence was irrelevant. This is not generally so. Let $R=k[x,y,z]$. Then $x,y(1-x),z(1-x)$ is a regular sequence (if $x=0$ then $1-x=0$ so $x=1$ so $y(1-x)=y$; you kill $x$, a nonzerodivisor, and what is left over is congruent to a sequence which looks like $\{y,z\}$). However, $\{y(1-x),z(1-x),x\}$ is not a regular sequence since $z(1-x)$ is a zerodivisor over $R/(y(1-x))$. 
+\end{enumerate}
+\end{ex}
+
+\begin{prop}
+Let $R$ be a noetherian ring and $M$ a finitely generated $R$-module. If $x_1,\cdots,x_n \in \rad R$ and form an $M$-sequence, then any permutation of the $x_i$'s form an $M$-sequence. 
+\end{prop}
+
+\noindent Proof: It suffices to show we can permute any adjacent two at a time. Suppose $x_1,\cdots,x_{i+1},x_i,\cdots,x_n$ is regular. But given the inductive nature of the definition, it suffices to show the case where $n=2$. So say $x,y$ is a regular sequence. We want to show $y,x$ is a regular sequence. We have $(y,x)M=(x,y)M \neq M$. We want to show that $y$ is a nonzerodivisor on $M$. Suppose $ym=0$ for $m \in M$. We know that $y$ is a nonzerodivisor modulo $x$. So pass to the quotient $M/xM$: we have $y \ov{m}=\ov{0}$ so $\ov{m}=\ov{0}$, i.e. $m \in xM$. So write $m=xm_1$. Then we have $0=ym=yxm_1=x(ym_1)$. But $x$ is a nonzerodivisor on $M$ so that $ym_1=0$. Now for each $i \geq 0$, we have $M_i=xm_{i+1}$ so that $ym_{i+1}=0$. In particular, $m=x^{im_i}$ for all $i$. But then $x \in \bigcap_{i \geq 0} x^iM=0$. Then by Krull's Theorem, $x \in \rad R$ so that $y$ is a nonzerodivisor on $M$. But $x$ is a nonzerodivisor on $M/yM$. So if $x \ov{m}=0$ for some $\ov{m} \in M/yM$, then $xm \in yM$ so that we are able to write $x\ov{m}=ym'$. Then $y \ov{m}' \in M/xM$. But $y\ov{m}'=x\ov{m}=0$. However, $y$ is a nonzerodivisor on $M/xM$ so $\ov{m}'=0$, i.e. $m'=xm''$ for some $m'' \in M$. Then we have $xm=ym'=yxm''$. We can cancel $x$'s because $x$ is a nonzerodivisor on $M$. So $m=ym'' \in yM$, as desired. \qed \\
+
+\LARGE{ Insert turbo refresher}
+
+\normalsize 
+
+\begin{thmm}
+Let $R$ be noetherian and $M$ an $R$-module. Let $I$ be an ideal of $R$ with $IM \neq M$. Then the following are equivalent:
+\begin{enumerate}[(i)]
+\item $I$ contains a regular sequence of length $n$
+\item $\Ext^i_R(R/I,M)=0$ for $i=0,1,\cdots,n-1$ 
+\end{enumerate}
+\end{thmm}
+
+\noindent Proof: Assume that $n=1$. We want to show $x \in I$ is a nonzerodivisor on $M$ if and only if $\Hom_R(R/I,M)=0$. Equivalently, $\Hom_R(R/I,M)=0$ if and only if every element of $I$ is a zerodivisor on $M$. For the reverse direction, suppose that $0\neq \phi \in \Hom_R(R/I,M)$. Set $m=\phi(\ov{1})$. If $m=0$, $\phi(\ov{r})=r\phi(\ov{1})=rm=0$ for all $\ov{r} \in R/I$, a contradiction. So for any $a \in I$, $aM=\phi(a\ov{1})=\phi(\ov{0})=0$ so every element of $I$ kills $M$. For the forward direction, since $I$ consists of zerodivisors on $M$, $I$ is contained in the union of the associated primes of $M$. By Prime Avoidance, $I \subseteq p$ since $p \in \ass_R M$. We know that $R/(p) \to M$ is injective. But then we are done. 
+
+For the case where $n>1$, we start by showing the reverse direction. So suppose $\Ext^i_R(R/I,M)=0$ for $i=0,1,2,\cdots,n-1$. By the $n=1$ case, we can find a $x \in I$ that is regular on $M$. We look at the short exact sequence
+\[
+0 \ma{} M \ma{x} \ma{} M \ma{} M/xM \ma{} 0
+\]
+Apply the functor $\Hom_R(R/I,-)$ and consider the long exact sequence in $\Ext$
+\[
+0 \ma{} \Hom_R(R/I,M) \ma{x} \Hom_R(R/I,M) \ma{} \Hom_R(R/I,M/xM) \ma{} \cdots\ma{} \Ext_R^1(R/I,M) \ma{x} \cdots
+\]
+In particular, look at
+\[
+\cdots \ma{x} \Ext_R^{i-1}(R/I,M) \ma{} \Ext_R^{i-1}(R/I,M) \ma{} \Ext^i_R(R/I,M) \ma{x} \cdots 
+\]
+By assumption, $\Ext_R^i(R/I,M)=0$ for $i=0,1,2,\cdots,n-1$ so that the ends of this sequence are zero. But then $\Ext_R^j(R/I,M/xM)=0$ for $j=0,1,2,\cdots,n-2$. By induction, we have $y_1,\cdots,y_{n-1} \in I$ that form a regular sequence on $M/xM$. Then $x,y_1,\cdots,y_{n-1}$ is a regular sequence on $M$. 
+
+For the forward direction in the case where $n>1$. suppose that $x_1,\cdots,x_n \in I$ is a $M$-regular sequence. We get a short exact sequence
+\[
+0 \ma{} M \ma{x_1} M \ma{} M/x_1M \ma{} 0
+\]
+So we get a long exact sequence
+\[
+\Ext_R^{i-1}(R/I,M/xM) \ma{} \Ext_R^i(R/I,M) \ma{x_1} \Ext_R^i(R/I,M) \ma{} \Ext_R^i(R/I,M/x_1M)
+\]
+since $x_2,\cdots,x_n$ is an $M/x_1M$ regular sequence, we get that $\Ext_R^j(R/I,M/x_1M)=0$ for $j=0,1,\cdots,n-2$. So $\Ext_R^i(R/I,M) \ma{x_1} \Ext_R^i(R/I,M)$ is injective for $i=0,1,\cdots,n-1$. But $x_1 \in I$ so that it kills $R/I$ -- thus it is the zero map. But then $\Ext_R^i(R/I,M)=0$ for $i=0,1,\cdots,n-1$. \qed \\
+
+
+
+
+
+
+
+
+\begin{dfn}[Depth]
+The depth of $I$ on $M$, denoted $\dep_I M$, is the length of the longest $M$-sequence in $I$. That is, $\dep_I M$ is $\min\{n\;|\;  \Ext_R^n(R/I,M)=0\}$. If there is no such $n$, we say that the depth is infinite. In the special case where $(R,\fm,k)$ is a local noetherian ring and $M$ a finitely generated $R$-module, we write $\dep M$ or sometimes $\dep_R M$ for $\dep_{\fm} M$. 
+\end{dfn}
+
+\begin{prop}
+If $R$ is noetherian and $M$ is a finitely generated $R$-module with $IM \neq M$, then $\dep_I M<\infty$.
+\end{prop}
+
+\noindent Proof: Suppose $x_1,\cdots,x_n,\cdots$ is a $M$-regular sequence. We know that the ascending chain
+\[
+(x_1)M \subseteq (x_1,x_2)M \subseteq (x_1,x_2,x_3)M \subseteq \cdots
+\]
+must stabilize since $R$ is noetherian. Then $(x_1,x_2,\cdots,x_k)M=(x_1,\cdots,x_{k+1})M$ for some $k$. But then $x_{k+1}M\subseteq (x_1,\cdots,x_k)M$ so that $x_{k+1}(M/(x_1,\cdots,x_k)M=0$, a contradiction to the regularity of the sequence. \qed \\
+
+\begin{lem}[Depth Lemma]
+\[
+0 \ma{} A \ma{} B \ma{} C \ma{} 0
+\]
+If the above is a short exact sequence of $R$-modules, then
+\begin{enumerate}[(i)]
+\item $\dep_I A \geq \min\{ \dep_I B, \dep_I C+1\}$
+\item $\dep_I B \geq \min\{\dep_I A, \dep_I C\}$
+\item $\dep_I C \geq \min\{\dep_I B,\dep_I A-1\}$
+\end{enumerate}
+\end{lem}
+
+\noindent Proof: The third follows by looking at the exact sequence
+\[
+\cdots \ma{} \Ext_R^{i-1}(R/I,B) \ma{} \Ext_R^{i-1}(R/I,C) \ma{} \Ext_R^i(R/I,A) \ma{} \cdots
+\]
+
+Now if $R$ is noetherian and $M$ is finitely generated, $IM \neq M$, then $x \in I$ is a nonzerodivisor on $M$. We want to show first that $\dep_I(M/xM)=\dep_I M-1$. We use the Depth Lemma:
+\[
+0 \ma{} M \ma{x} M \ma{} M/xM \ma{} 0
+\]
+Then $\dep_I \ov{M} \geq \min\{\dep_I M,\dep_I M-1\}= \dep_I M-1$. For the other inequality, we have a long exact sequence 
+\[
+0=\Ext_R^{t-1}(R/I,M) \ma{} \Ext_R^{t-1}(R/I,M/xM) \ma{} \Ext_R^t(R/I,M) \ma{x} \Ext_R^t(R/I,M)
+\]
+where the last two are nonzero as $t-1 \leq \dep$. Now $x \in I$ kills $\Ext_R^t(R/I,M)$ so that the multiplication by $x$ map is the zero map. Then $0 \to \Ext_R^{t-1}(R/I,M/xM) \to \Ext_R^t(R/I,M) \to 0$ is exact. So they are isomorphic and $\Ext_R^t(R/I,M) \neq 0$ so that $\dep_I M/xM \leq t-1$, as desired. 
+
+Now we show that any two maximal $M$-sequences in $I$ have the same length, namely $\dep_I M$. It is enough to show that any $M$-sequence in $I$ can be extended to one of length $t$. So let $x_1,\cdots,x_k$ be a $M$-sequence in $I$. If $k=0$, we can just find a $M$-sequence of length $t$. On the other hand, if $k>0$, we use our work above. We have $\dep_I(M/(x_1,\cdots,x_k)M)=t-k$ so that we can find a sequence $y_1,\cdots,y_{t-k} \in I$ that is a regular sequence on $M/(x_1,\cdots,x_k)M$. But then $x_1,\cdots,x_k,y_1,\cdots,y_{t-k}$ is a $M$-sequence in $I$ of length $t$. \qed \\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{ex}
+Let $R=k[x,y]/(x^2,xy)$. What is the depth of $R$? We can compute Ext or find elements avoiding associated primes. A nonzerodivisor of $(x,y)$ its outside the union of the associated primes of $R$. We have $\ann(y)=(x)$ so $(x) \in \ass R$ and $\ann(x)=(x,y)=\fm$ so $\fm \in \ass R$ so that $\dep R=0$. Notice we have $\ov{R}=R/(x)=k[y]$ which has $\dep 1>0$ so depth can go up if we kill a zero divisor. 
+\end{ex}
+
+\subsection{Comparing Depth and Dim}
+
+Recall that $\dim M=\dim(R/\ann_R M)$. The idea of the following proposition and its corollary is that for $x \in \fm$ to be a nonzerodivisor on $M$ it has to avoid $\ass_R M$. To be a part of a system of parameters for $R/\ann_R M$, you must be a part of the minimal primes of $\ann_R M$ with $\dim R/p-\dim M$. But the minimal primes are associated. So it is easier to avoid minimal primes than associated ones. Then it is also easier to be part of a system of parameters than to be a nonzerodivisor. 
+
+\begin{prop}
+Let $(R,\fm)$ be a noetherian local ring and $M$ a finitely generated $R$-module. Then $\dep_R M\leq R/p$ for all $p \in \ass_R M$. 
+\end{prop}
+
+\noindent Proof: Set $n=\dep M$. We proceed by induction on $n$. If $n=0$ there is nothing to show. If $n>0$, there is a $x \in \fm$ which is $M$-regular. Let $p \in \ass_R M$ and set $\Lambda=\{Rz\;|\; 0 \neq z \in M, pz=0\}$. Since $p \in \ass_R M$, we know that $\Lambda \neq \emptyset$. As $R$ is noetherian and $M$ is finitely generated, $\Lambda$ has a maximal element, say $Rw$. We claim that $w \notin xM$. [$w \notin xM$ then $\ov{w} \neq 0$ in $M/xM$ but $p \ov{w}=0$.] 
+
+To prove the claim, suppose $w=xu$ for $u \in M$. Then $0=pw=p(xu)$ but $x$ is a nonzerodivisor on $M$ so $pu=0$. Therefore, $Ru \in \Lambda$ and $Rw \leq Ru$. By maximality, we must have $Rw=Ru$. But then $u=sw$ for some $s \in R$ and then $w=xu=xsw$ so that $(1-xs)w=0$. But $x \in \fm$ so that $1-xs$ is a unit so that it must be that $w=0$, a contradiction. This proves the claim.
+
+Using the claim, $p$ consists of zerodivisors on $M/xM$. But then $p \subseteq \bigcup_{q \in \ass M/xM} q$. By Prime Avoidance, $p \subseteq q$ for some $q \in \ass M/xM$. We want strict containment: $p \subsetneq q$. Since $p$ consists of zerodivisors on $M$, we know $x \notin p$. But then $(M/xM)_p=M/xM \otimes_R R_p=0$ as $x$ is a unit in $R_p$. But then $p \notin \supp M/xM$. But associated primes are always in the support so $p \neq q$. By induction, $\dep M/xM \leq \dim R/q$ so that $n-1 \leq \dim R/q < \dim R/p$. Therefore, $n \leq \dim R/p$, as desired. \qed \\
+
+\begin{cor}
+Let $(R,\fm)$ be a noetherian local ring and $M$ a finitely generated $R$-module. Then $\dep M \leq \dim M$.
+\end{cor}
+
+\noindent Proof: We know $p \in \ass M$ if and only if $R/p$ injects into $M$ so that $0\neq k(p)$ injects into $M_p$ so that $M_p \neq 0$. Then $p \in \supp M$ so $p \supset \ann_R M$ so $\dim R/p$ (lengths of chains starting at $p$) is less than $\dim M$ (chains starting at $\ann_R M$) so $\dep M \leq \dim M$. \qed \\
+
+\begin{dfn}[Cohen-Macaulay]
+$M$ is Cohen-Macaulay if $\dep M=\dim M$. We say that $M$ is maximal Cohen-Macaulay if $\dep M=\dim M=\dim R$. A ring $R$ is Cohen-Macaulay ring if it is a Cohen-Macaulay $R$-module. We often abbreviate Cohen-Macaulay as CM and maximal Cohen-Macaulay as MCM.
+\end{dfn}
+
+\begin{ex}
+Any artinian local ring is CM since $\dim =0$. Furthermore, every finitely generated module over such a ring is MCM as $\dim M=0$. 
+\end{ex}
+
+\begin{ex}
+If $(R,\fm)$ is a 1-dimensional domain, then it is CM. There is a $x \in \fm \setminus (0)$ a nonzerodivisor since this is a domain. So we get examples $\Z_{(p)}, k[x]_{(x)}, k[[x]], $ and $k[[t^9,t^{10},t^{11}]]$. 
+\end{ex}
+
+\begin{ex}
+Let $R=k[[x,y]]/(xy)$ is a one-dimensional local non-domain. It is CM since the power series ring is CM and the depth and dimension both drop by one when killing $xy$. In fact, any 1-dimensional reduced local ring is CM.
+\end{ex}
+
+\begin{ex}
+Let $R=k[[x,y,z]]/(xy,xz)$. We will show that $R$ is not CM. The minimal primes are $(xy,xz)=(x) \cap (y,z)$ so $\ass R=\min R=\{(x),(y,z)\}$. By the theorem, we know
+\[
+\begin{split}
+\dep R &\leq \min\{\dim R/(x),\dim R/(y,z)\} \\
+&= \min\{i,1\} \\
+&=1
+\end{split}
+\]
+Then $\dep=1$ as we can find $x+y \notin \ass R$. On the other hand, $\dim R=\max\{\dim R/(x),\dim R/(y,z)\}=2$.
+\end{ex}
+
+\begin{cor}
+In a CM local ring, every associated prime is a minimal prime so that it is never embedded (this is called unmixed and was the original CM definition). Furthermore, $\dim R/p$ must be constant across minimal primes (this is called equidimensional). 
+\end{cor}
+
+\begin{ex}
+Let $R=k[[x,y,u,v]]/(x,y) \cap (u,v)$. Note that $(x,y) \cap (u,v)=(xu,xv,yu,yv)$. Now $R$ is unmixed and equidimensional of dimension 2. Geometrically, $R$ is the completion of a coordinate ring of two planes meeting at a point in 4-space. But what is the depth of $R$? We have $x-u$ is a nonzerodivisor and 
+\[
+\begin{split}
+R/(x-u) &\cong k[[x,y,v]]/(x,y) \cap (x,v) \\
+&=k[[y,v]]/(y) \cap (v) \\
+&=k[[y,v]]/(yv)
+\end{split}
+\]
+is a CM local ring of $\dim-\dep=1$ so $\dep R=\dim R=2$.
+\end{ex}
+
+\begin{dfn}[Grade]
+If $I \leq R$ is an ideal, the length of a maximal $R$-sequence in $I$ is called the grade of $I$, denoted $\gr I$. That is, $\gr I=\dep_I R$.
+\end{dfn}
+
+\begin{thmm}
+Let $(R,\fm)$ be a CM local ring and $I \subseteq R$ an ideal. Then 
+\begin{enumerate}[(i)]
+\item $\htt I=\dep_I R$. That is, $\htt I=\gr I=\dep_I R$.
+\item $\htt I + \dim R/I = \dim R$. That is, $\htt I=\codim I \defeq \dim R-\dim R/I$.
+\item if $x_1,\cdots,x_n \in \fm$ then $\htt(x_1,\cdots,x_n)=n$ if and only if $x_1,\cdots,x_n$ is a regular sequence. 
+\end{enumerate}
+\end{thmm}
+
+\noindent Proof:
+\begin{enumerate}
+\item[(iii)] We show only the forward direction. If $\htt(x_1,\cdots,x_n)=n$, extend (using avoidance of minimal primes at each step) $x_1,\cdots,x_n$ to a system of parameters $x_1,\cdots,x_d$. We have $\htt(x_1,\cdots,x_d)=\dim R$. We claim that $x_1,\cdots,x_d$ is a regular sequence. We know $x_1$ is a zerodivisor in $R$. Then $x_1 \in p$ for $p \in \ass R$. But $\dim R=d=\dep R \leq R/p \leq \dim R=d$ so $\dim R/p=d$> But $\ov{x}_2,\cdots,\ov{x}_d$ is a system of parameters in $R/x_1$ so $\dim R/(x_1)=d-1$, which contradicts the fact that $R/(x_1)$ surjects to $R/p$ so $x_1$ is a nonzerodivisor. Now kill $x_1$: $\dep R/(x_1)=\dep R-1$ and $\dim R/(x_1)=\dim R-1$. We have $R/(x_1)$ a CM local ring. By induction since $\ov{x}_1,\cdots,\ov{x}_d$ is a system of parameters, it is a regular sequence in $R/(x_1)$ so that $x_1,\cdots,x_d$ is a regular sequence in $R$> 
+
+\item[(i)] We show only $\leq$. If $\htt I=h$, then we can choose $x_1,\cdots,x_h \in I$ which generate an ideal of height $h$. [This uses prime avoidance ti avoid minimal primes of $x_1,\cdots,x_{i-1}$ while choosing them from $I$.] By (iii), $x_1,\cdots,x_h$ form a regular sequence so $\gr I \geq h$.
+
+\item[(ii)] We prove for $I=p$ prime. Let $h=\htt p$. By (i), there is a regular sequence $x_1,\cdots,x_n \in p$. By (iii) and $\htt(x_1,\cdots,x_n)=h$. So $p$ is a minimal prime of $(x_1,\cdots,x_n)$. It follows that $\ov{p}$ is a minimal prime of $R/(x_1,\cdots,x_n)$ so that $\ov{p} \in \ass(R/(x_1,\cdots,x_n))$. We know that $R/(x_1,\cdots,x_n)$ is CM so 
+\[
+\begin{split}
+\dim R/p&=\dim\bigg(\big(R/(x_1,\cdots,x_n)\big)\bigg)/\ov{p} \\
+&=\dim R/(x_1,\cdots,x_n) \\
+&=\dim R-h \\
+&=\dim R-\htt p
+\end{split}
+\]
+where the second equality follows from the fact that we are in CM local ring and CM local rings are equidimensional, i.e. dimension is constant when killing minimal primes. 
+\end{enumerate}
+\qed \\
+
+Recall that a ring $R$ is catenary if $\dim R_p+\dim R/p=\dim R$ for all primes $p \in \spec R$. Equivalently, $\htt p-\codim p$ for all $p \in \spec R$. 
+
+\begin{cor}
+CM (local) rings are catenary. In fact, take a ring which is the homomorphic image of a CM (local) ring is catenary. 
+\end{cor}
+
+Before the next proposition, we say a few things about grade. Set $\gr I=\dep_I R$. This is the maximal length of an $R$-sequence in $I$. But this is $\min\{n \;|\; \Ext_R^n(R/I,R)\neq 0\}$. Generally, if $M$ is a finitely generated $R$-module. Set $\gr M \defeq \min\{n \;|\; \Ext_R^n(M,R) \neq 0\}$. So $\gr I=\gr R/I$. One can show [Matsumura 16.6] that $\gr M=\gr \ann_R M$ for all finitely generated $R$-modules $M$. 
+
+\begin{prop}[CM Localizes]
+If $(R,\fm)$ is CM and $p \in \spec R$, then $(R_p,pR_p)$ is CM. Generally, if $M$ is a CM-module over a local ring $(R,\fm)$ and $p$ is prime in $\spec R$, then either $M_p=0$ or $M_p$ is CM over $R_p$. 
+\end{prop}
+
+\noindent Proof: Notice that $\dim M_p \geq \dep M_p \geq \dep p(M)$ since $x_1,\cdots,x_n$ generate a regular $M$-sequence in $p$. Then $\frac{x}{1},\cdots,\frac{x_n}{1}$ is a $M_p$-regular sequence in a maximal ideal of $R_p$. So it is enough to show $\dim M_p=\dep M$. 
+
+If $\dep_R M=0$, then we have zerodivisors on $M$ so $p \subseteq q$ for some $q \in \ass M$. But $M$ is CM so unmixed. Hence, $\ass M=\min M$. So localizing, either $p=q$ or $p \not\supset \ann_R M$. In the latter, $M_p=0$. In the former, $\dim M_p=0$. Then if $\dep_p M \geq 0$, $x \in p \neq 0$ so that $\dep_p M/xM=\dep_p M-1$ and $\dim(M/xM)_p=\dim(M_p/xM_p)=\dim M_p-1$. By induction, $\dep_p(M/xM)=\dim(M/xM)_p$ so $\dim M_p=\dep M$. \qed \\
+
+\begin{dfn}[CM]
+A noetherian ring $R$ is CM if $R_\fm$ is CM for all maximal $\fm$. 
+\end{dfn}
+
+\begin{rem}
+In Bruns-Herzog 1.2, A.1, they show the following: let $\phi: (R,\fm) \to (S,\eta)$ be a flat local homomorphism of local rings (faithfully flat). Let $M$ be a finitely generated $R$-module. Then $\dim(M \otimes_R S)=\dim M+\dim S/\fm S$ and $\dep(M \otimes_R S)=\dep M+\dep S/\fm S$. 
+\end{rem}
+
+\begin{cor}
+$S$ is CM if and only if $R$ and $S/\fm S$ are CM.
+\end{cor}
+
+\begin{cor}
+$\hat{R}$ is CM if and only if $R$ is CM.
+\end{cor}
+
+\noindent Proof: A short proof is that $\hat{R}/\fm \hat{R}=R/\fm$ is CM. A more direct proof is that $\dim R=\dim \hat{R}$. So we have
+\[
+\dep \hat{R}=\min\{n\;|\; \Ext_R^n(\hat{R}/\hat{\fm},\hat{R}\neq0 \}=\{n\;|\; \Ext_R^n(R/\fm,R) \otimes_R \hat{R}\neq 0\}
+\]
+The same holds for Ext by flatness as vanishing/not vanishing holds over $\hat{R}$ by flatness again. So this is 
+\[
+= \min\{n\;|\; \Ext_R^n(R/\fm,R) \neq 0\}=\dep R
+\]
+\qed \\
+
+\begin{cor}
+$R$ is CM if and only if $R[x_1,\cdots,x_n]$ is CM.
+\end{cor}
+
+\noindent Proof: Localize at $\fm \in \spec R[x_1,\cdots,x_n]$. We have maximal ideal $\fm=M \cap R$. The closed fiber of $R\fm \to R[x_1,\cdots,x_n]_M$. and $R[x_1,\cdots,x_n]_\fm/\fm R[x_1,\cdots,x_n]_M=R/\fm[x_1,\cdots,x_n]_{\ov{\fm}}$. This is a polynomial ring voer a field which is CM. \qed \\
+
+We now turn our attention to free resolutions over local rings. In particular, we look at Auslander-Buchbaum and regular local rings. Really that a finitely generated projective module over a local noetherian ring is a free module. 
+
+\begin{ex}
+A nonzerodivisor $x \in R$ is regular on $M$ if and only if $\Tor_1^R(M,R/(x))=0$.
+\end{ex}
+
+\textbf{\emph{For awhile now, $(R,\fm,k)$ will be a local noetherian ring.}}
+
+\begin{dfn}
+Let $M$ be a finitely generated $R$-module and $F: \cdots \to F_n \to F_{n-1} \to \cdots \to F_1 \to F_0 \to M \to 0$ a free resolution of $M$ by finitely generated free $R$-modules $F_i$. We say that $F$ is a minimal resolution if $d_n(F_n) \subseteq \fm F_{n-1}$ for all $n$. Equivalently, choosing bases for free modules $F_i$, i.e. fixing an isomorphism $F_i \cong R^{b_i}$, then $d_n: F_n \to F_{n-1}$ are replaced by matrices $(a_{ij}): R^{b_n} \to R^{b_{n-1}}$ so that
+\[
+d_n(e_j)= \begin{pmatrix} a_{j1} \\ a_{j2} \\ \vdots \\ a_{j,b_{n-1}} \end{pmatrix}
+\]
+Then $F$ is minimal if and only if every entry $a_{ij}$ is in $\fm$. 
+\end{dfn}
+
+\begin{rem}
+Minimal free resolutions exist. Inductively, one only need to fix $M$ and choose a basis for $k$-vector space $M/\fm M$, say $\{\ov{x}_1,\cdots,\ov{x}_r\}$. By Nakayama's Lemma, $\{x_1,\cdots,x_r\}$ generate $M$. Define $d_0: R^r \to M$ by $e_i \mapsto x_i$. Then $d_0$ is surjective and we get a short exact sequence
+\[
+0 \ma{} \Omega M \ma{} R^r \ma{d_0} M \ma{} 0
+\]
+It suffices to show $\Omega M \subseteq \fm R^r$ (for then $d_1: R^{r'} \to \Omega M$ will give composition $R^{r'} \to R^r$ with image in $\fm R^r$). Tensoring with $k=R/\fm$ will give
+\[
+\cdots \ma{} \Omega M/\fm \Omega M \ma{} R^r/\fm R^r \ma{\ov{d}_0} M/\fm M \ma{} 0
+\]
+Of course, $R^r/\fm R^r =(R/\fm)^r$. The map $(R\fm)^r \ma{\ov{d}_0} M/\fm M$ sends $\ov{e}_i \mapsto \ov{x}_i$ so it is an isomorphism. In particular, the image of $\Omega M$ in $R^r/\fm R^r$ is 0 by exactness, as desired. 
+\end{rem}
+
+\begin{prop}
+The following are equivalent:
+\begin{enumerate}[(i)]
+\item $F$ is a minimal free resolution
+\item $\ov{d}_n: F_n \otimes_R k \to F_{n-1} \otimes_R k$ is the zero map for all $n$
+\item $\rank F_n=\dim_k \Tor_n^R(M,k)$ for all $n$. The latter is called the Betti number of $M$, denoted $\beta_n^R(M)$. In particular, the ranks of $F_n$ are determined by $M$.
+\end{enumerate}
+\end{prop}
+
+\noindent Proof:
+\begin{enumerate}
+\item[(i) $\leftrightarrow$ (ii):]  We have the commutative diagram
+\[
+\begin{tikzcd}
+F_n \arrow{r}{d_n} \arrow{d} & F_{n-1} \arrow{d} \\
+R^{b_n} \arrow{r}{(a_{ij})} & R^{b_{n-1}}
+\end{tikzcd}
+\]
+where the vertical maps are isomorphisms. So the map $\ov{d}_n$ is represented by $(\ov{a}_{ij}): k^{b_n} \to k^{b_{n-1}}$. The $a_{ij}$ satisfies $a_{ij} \in \fm$ if and only if it is the zero map. 
+
+\item[(ii)$\leftrightarrow$(iii):] We have 
+\[
+\cdots \ma{} F_n \otimes_R k \ma{\ov{d}_n} F_{n-1} \otimes_R k \ma{\ov{d}_{n-1}} \cdots \ma{} F_0 \otimes_R k \ma{} 0
+\]
+Of course, this is
+\[
+\cdots \ma{} F_n/\fm F_n \ma{\ov{d}_n} F_{n-1}/\fm F_{n-1} \ma{\ov{d}_{n-1}} \cdots \ma{} F_0/\fm F_0 \ma{} 0
+\]
+The homology of this is $\Tor_n^R(M,l)$. We have $\ov{d}_n=0$ for all $n$ if and only if $\Tor_n^R(M,k)=F_n \otimes_R k$ if and only if $\dim\Tor_n^R(M,k)=\dim(F_n \otimes_R k)=b_n$. 
+\end{enumerate}
+\qed \\
+
+\begin{rem}
+One should ask why is $\Tor_n^R(M,k)$ a vector space nevertheless finitely generated. This is because $\fm$ kills $k$ so it must kill $\Tor$. 
+\end{rem}
+
+\begin{rem}
+Minimal free resolutions are unique up to isomorphism.
+\end{rem}
+
+\begin{cor}
+$\pd_R M=\sup\{n \;|\; \Tor_n^R(M,k) \neq 0\}$
+\end{cor}
+
+\subsection{Auslander-Buchsbaum}
+
+We now hope to relate projective dimension and depth. 
+
+\begin{lem}
+Let $(R,\fm,k)$ be a noetherian local ring and $M$ a finitely generated $R$-module. Let $x \in \fm$ be both $R$-regular and $M$-regular. Then $\pd_{R/(x)} M/xM=\pd_R M$.
+\end{lem}
+
+\noindent Proof: We know that $\Tor_1^R(M,R/(x))=0$ since $x$ is both $R$ and $M$ regular. Also, $R/(x)$ has free resolution
+\[
+0 \ma{} R \ma{x} R \ma{} R/(x) \ma{} 0
+\]
+since $x$ is $R$-regular. Hence, $\pd_R R/(x)=1$ and it follows that $\Tor_n^R(M,R/(x))=0$ for $n>1$. So take a minimal free resolution $F$:
+\[
+\cdots \ma{} F_n \ma{d_n} F_{n-1} \ma{} \cdots \ma{} F_0 \ma{} M \ma{} 0
+\]
+and apply the exact functor $- \otimes_R R/(x)$ to obtain
+\[
+\cdots \ma{} F_n/xF_n \ma{\ov{d}_n} \cdots \ma{} F_0/xF_0 \ma{} M/xM \ma{} 0
+\]
+This is a free resolution of $M/xM$ over the ring $R/(x)$. If $F$ is minimal, $d_n(F_n) \subseteq \fm F_{n-1}$ so that $\ov{d}_n(F_n/xF_n) \subseteq \fm(F_{n-1}/xF_{n-1})$ so that $F \otimes_R R/(x)$ is minimal too. This gives the desired equality. \qed \\
+
+\begin{thmm}[Auslander-Buchsbaum]
+Let $(R,\fm,k)$ be a noetherian local ring and $M$ a finitely generated $R$-module. If $\pd_R M<\infty$ then we know that 
+\[
+\dep R= \pd_R M + \dep_R M
+\]
+Note that $\dep M, \dep R$ is always finite for such a ring and module so that it is false if $\pd_R M=\infty$. 
+\end{thmm}
+
+\noindent Proof: We proceed by induction on $\dep R$. If $\dep R=0$, suppose that $\pd_R M<\infty$. It suffices to show that $\pd_R M=0$. In this case, $M$ is free and $\dep M=\dep R^n=\dep R=0$. Take a minimal free resolution
+\[
+0 \ma{} F_n \ma{d_n} F_{n-1} \ma{} \cdots \ma{} F_0 \ma{} M \ma{} 0
+\]
+(note that we are assuming here that $n>0$ so there is at least one $d_n$). Since $\dep R=0$, $\fm$ consists of zerodivisors so it is contained in the union of associated primes. By Prime Avoidance, $\fm$ must be one of the associated primes. Hence, $\fm=\ann_R x$ for some $x \in R$. Choose bases for $F_n$ and $F_{n-1}$ to represent $d_n$ as a matrix $a_{ij}$. Then $(a_{ij})\vec{x}=\vec{0}$ since $a_{ij} \in \fm$. But $d_n$ should be injective by the exact sequence. 
+
+Now assume $\dep R>0$ and take a syzygy 
+\[
+0 \ma{} K \ma{} F \ma{} M \ma{} 0
+\]
+where $F$ is free. The first case is where $\dep M=0$. Then as $\dep F=\dim R=\dep R$, the Depth Lemma says that $\dep K=\dep M+1=1$. We also have $\pd_R K=\pd_R M-1$ so if we can show the result for $K$ we get it for $M$. So we can assume that $\dep M>0$.
+
+In the case that $\dep M>0$, we know that $\dep R>0$ ($\fm$ is not contained in the union of $\ass M$ and $\ass R$ so we can find a $x \in \fm$ regular on both $M$ and $R$). Then $\dep R/(x)=\dep R-1$ and $\dep_R M/xM=\dep M-1$ and $\pd_{R/(x)} M/xM=\pd_R M$ (using the lemma). By induction, $\pd_{R/(x)} M/xM+ \dep_{R/(x)} M/xM$ is $\dep R/(x)$. Note that if $J \subseteq I$ are ideals and $J$ kills $M$, $JM=0$. Then $\dep_I M=\dep_{I/J} M$ so $\pd_{R/(x)} M/xM+\dep_R M/xM=\dep R/(x)$. Hence, the result holds for $M$. \qed \\
+
+\begin{cor}[A way to get CM rings]
+Let $(S,\eta,k)$ be CM local rings and $I$ is an ideal of $S$ such that $\pd_S S/I<\infty$. Then $R$ is CM if and only if $\pd_S R=\htt I$. 
+\end{cor}
+
+\noindent Proof: We use Auslander-Buchsbaum. 
+\[
+\pd_S R+ \dep_S R=\dep S=\dim S
+\]
+so 
+\[
+\begin{split}
+\pd_S R&=\dim S- \dep_S R \\
+&=\dim S - \dep_R R \\
+&\geq \dim S-\dim R \\
+&=\htt I
+\end{split}
+\]
+where the last equality follows since CM rings are catenary, i.e. $\htt=\codim$. So we have the equality $\pd_S R= \htt I$ if and only if $\dep R=\dim R$. \qed \\
+
+\begin{rem}
+$\pd_R=\sup\{n\;|\; \Tor_n^R(M,k) \neq 0\}$ for a finitely generated $R$-module $M$ over a local ring $(R,\fm,k)$.
+\end{rem}
+
+\begin{cor}
+$\pd_R M \geq \pd_R k$ for all finitely generated $M$.
+\end{cor}
+
+\noindent Proof: We can compute $\Tor$ from the resolution of $k$. It is finite so $\Tor_n^R(M,k)=0$ for sufficiently large $n$. \qed \\
+
+\begin{cor}
+If $\pd_R k<\infty$ then $R$ has finite global dimension (the projective dimension of every finitely generated $R$-module is finite).
+\end{cor}
+
+We want to show next that $R$ has finite global dimension if and only if it is a regular local ring. In terms of generators, this is $\mu_R(\fm)=\dim R$. First, recall that if $(R,\fm)$ is a noetherian local ring that is not artinian and $\dim R \neq 0$ then $R$ is a domain. Second, if $x_1,\cdots,x_n$ is a regular sequence in $\fm$ then $R/(x_1,\cdots,x_n)$ has finite projective dimension over $R$ because it is resolved minimally by the Koszul complex.
+
+\begin{dfn}
+A sequence of elements $x_1,\cdots,x_n$ in $R$ is a prime sequence if the ideals $(0),(x_1),(x_1,x_2),\cdots,(x_1,\cdots,x_n)$ are distinct prime ideals. 
+\end{dfn}
+
+\begin{rem}
+A prime sequence is a regular sequence. However, the converse is false. 
+\end{rem}
+
+\begin{thmm}[Auslander-Buchsbaum-Serre]
+Let $(R,\fm,k)$ be a $d$-dimensional local ring. Then the following are equivalent:
+\begin{enumerate}[(i)]
+\item $\pd_R k<\infty$
+\item $\pd_R M<\infty$. If $M$ is finitely generated, then $\gldim R<\infty$.
+\item $\fm$ is generated by a regular sequence
+\item $\fm$ is generated by $d$ elements, i.e. $R$ is a regular local ring.
+\end{enumerate}
+\end{thmm}
+
+\noindent Proof: 
+\begin{enumerate}
+\item[(i)$\leftrightarrow$(ii):] We have already seen this.
+\item[(iii)$\to$(i):] If $\fm=(x_1,\cdots,x_n)$ is generated by a regular sequence then $k=R/\fm=R/(x_1,\cdots,x_n)$ has finite projective dimension by the comments proceeding the theorem.
+\item[(iv)$\to$(iii):] Suppose $\fm(x_1,\cdots,x_d)$. We want to show that $(x_1,\cdots,x_d)$ is a regular sequence. It suffices to show $x_1,\cdots,x_d$ is a prime sequence. We proceed by induction on $d$. If $d=0$ then $\fm=(0)$ so it is maximal and $R$ is then a field. If $d=1$, $\fm=(x)$ and $\dim R=1$ so $R$ is a domain and $(0),(x)$ are prime ideals. 
+
+Now if $d>1$, $\fm=(x_1,\cdots,x_d)$ and we know that $|fm$ needs at least $d=\htt \fm=\dim R$ generators by Krull's Principal Ideal Theorem. So each $x_i$ is in $\fm$ but not in $\fm^2$, i.e. each is a minimal generator by Nakayama's Lemma. Set $\ov{R}=R/(x_1)$. Then $\dim \ov{R} \leq \mu_{\ov{R}}(\ov{\fm})$. By Krull's Principal Ideal Theorem, this is $\mu_R(\fm)=1=d-1 \leq \dim \ov{R}$. So $\dim \ov{R}=d-1$. By induction, $\ov{R}$ is a domain so $(x_1)$ is a prime ideal in $R$. Then $(x_1,\cdots,x_i)$ is prime in $R$ for $i=2,3,\cdots,d$. 
+
+\item[(i)$\to$(iv):] $\pd_R k <\infty$. Every element of $\fm$ kills $k$, $\dep k=0$ so by Auslander-Buchsbaum $\pd_R k+0=\dep R \leq \dim R=d$. We now proceed by induction on $d$. If $d=0$ then $\pd_R k=0$ so $k$ is free. Hence, $R=k$ is a field so $M$ is generated by $0$ elements. If $d>0$, then $\dep R=0$ shows that $R$ is a field so $d=0$, a contradiction. Hence, $\dep R>0$. 
+
+Now $\fm \notin \ass R$ and so we can find a regular element $x \in \fm$ using Prime Avoidance to be sure that $x$ is not in any associated prime. But recall that we can avoid up to 2 nonprime ideals so that we can choose $x$ to be not in $\fm^2$ (so it is a minimal generators of the maximal ideal). Set $\ov{R}=R/(x)$. We know that $\dim \ov{R}=\dim R-1$ since $x$ is not in any minimal prime. Also, $\mu_{\ov{R}}(\ov{\fm})=\mu_R(\fm)-1$ since $x$ is a minimal generator so we just need $\pd_{\ov{R}}(\ov{R}/\ov{\fm})<\infty$ since then induction will show that $\ov{\fm}$ is generated by $d-1$ elements and we are done. 
+
+The idea of the next parts of the proof is as follows: $\pd_{R/(x)} M/xM=\pd_R M$ whenever $x$ is $M$-regular. But no $x$ in $\fm$ is regular on $k$. So we will have to show $\pd_{\ov{R}}(\ov{\fm})<\infty$ so that then $\pd k$ is one bigger: $\ov{\fm}=\fm/(x)$ is very different than $\fm/x\fm$. 
+
+It suffices to show that $\pd_{\ov{R}}(\fm)<\infty$ because of the short exact sequence relating them. We know by the lemma that $\pd_{\ov{R}} \fm/x \fm<\infty$. But $\ov{\fm} \neq \fm/x\fm$. We claim that for a noetherian local ring $(R,\fm)$ and a regular element, nonzerodivisor $x \in \fm/\fm^2$, $R/\fm$ is a direct summand of $\fm/x\fm$ (as an $R$-module and $R/(x)$-module). 
+
+To see this, let $\phi: R/\fm \to \fm/x\fm$ be given by $\ov{r} \mapsto \ov{r} \ov{x}$. To see this is well defined, note that if $\ov{r}=\ov{0}$ then $\phi(\ov{r})=\ov{0}$ and $\ov{r} x \in \fm/x \fm$ for all $\ov{r}$ since $x \in \fm$. To see that $\phi$ is nonzero, observe $\phi(\ov{1})=\ov{x} \neq 0$ as $x \notin x \fm$ by Nakayama's Lemma. Now $\phi$ must be injective since $R/\fm$ is a field so we have
+\[
+0 \ma{} R/\fm \ma{\phi} \fm/x\fm \ma{} \fm/xR=\ov{\fm} \ma{} 0
+\]
+Define a splitting $\psi: \fm/x\fm \to R/\fm$. Write $\fm=(x,y_1,\cdots,y_r)$ be a minimal generating set. Then $\langle \ov{x},\ov{y}_1,\cdots,\ov{y}_r \rangle$ is a basis for $\fm/\fm^2$ while $\ov{x},\ov{y}_1,\cdots,\ov{y}_r$ is a generating set for $\fm/x\fm$ but is not a basis. Define $\psi(u+x\fm)$ for $u \notin \fm$ by writing $u=\ov{a} \ov{x}+\ov{b}_1 \ov{y}_1+\cdots+\ov{b}_r \ov{y}_R$ uniquely in $\fm/\fm^2$ and setting $\psi(u+x\fm)=\ov{a} \in R/\fm$. Then $\psi \phi(\ov{r})=\phi(\ov{r} \ov{r})=\ov{r}$ as long as this is a well defined homomorphism, $\psi$ splits $\phi$. 
+
+To see this is well defined, if $u+x\fm=0+x\fm$, i.e. $u \in \fm$. Then $u=x(cx+d_1y_1+\cdots+d_ry_r)$ so $\ov{u}+x\fm=cx+\text{ stuff}$, where $\ov{a}=cx$. Then $\ov{a}=0 \in R/\fm$ as a multiple of $x$. That is, $x \fm \subseteq \fm^2$, $\fm/x\fm$ surjects to $\fm/\fm^2$ by $u+x\fm \mapsto \ov{u}$.
+\end{enumerate}
+\qed \\
+
+\begin{cor}[Serre, Regularity Localizes]
+If $(R,\fm,k)$ is a regular local ring and $p$ is prime, then $(R_p,pR_p)$ is a regular local ring. 
+\end{cor}
+
+\noindent Proof: By the theorem, it suffices to show the residue field of $R_p$ has finite projective dimension as a $R_p$-module. We have $k(p)=R_p/pR_p=(R/p)_p$ is a finitely generated $R$-module and $R/p$ has finite projective dimension since $R$ is a regular local ring. Write
+\[
+0 \ma{} F_t \ma{} F_{t-1} \ma{} \cdots \ma{} F_1 \ma{} F_0 \ma{} R/p \ma{} 0
+\]
+is an exact sequence of finitely generated free $R$-modules. Localize to get
+\[
+0 \ma{} (F_t)_p \ma{} (F_{t-1})_p \ma{} \cdots \ma{} (F_1)_p \ma{} (F_0)_p \ma{} (R/p)_p \ma{} 0
+\]
+but $R/p=k(p)$. This sequence is exact by flatness and is a $R_p$-free resolution of $k(p)$. \qed \\
+
+\begin{rem}
+It is virtually impossible to prove the previous corollary from the definition $\fm=(x_1,\cdots,x_d)$.
+\end{rem}
+
+\begin{dfn}[Regular Ring]
+A noetherian ring $R$ is regular if it is locally regular at every prime (or just maximal) ideal.
+\end{dfn}
+
+\begin{ex}
+$k[x_1,\cdots,x_n]$ is regular because it is regular at every maximal ideal. We also know that $\Z$ is a regular ring since all the $p$-adics are regular. If $R$ is regular, so too are $R[x]$ and $R[[x]]$ are regular. 
+\end{ex}
+
+\begin{cor}
+A local ring $(R,\fm,k)$ is regular if and only if its completion is regular.
+\end{cor}
+
+\noindent Proof: The map $R \to \hat{R}$ is faithfully flat so $\pd_R k<\infty$ if and only if $\pd_{\hat{R}} k \otimes \hat{R}=\pd_{\hat{R}} k <\infty$. \qed \\
+
+\begin{prop}
+Let $(R,\fm,k)$ be a local ring and $x \in \fm$ but not in any minimal prime. Then $R/(x)$ is a regular local ring if and only if $R$ is a regular local ring and $x$ is a minimal generator of $\fm$, i.e. $x \in \fm/\fm^2$. 
+\end{prop}
+
+\noindent Proof: We know that $x \in \fm/\fm^2$ if and only if $x$ is a minimal generator of $\fm$. So 
+\[
+\mu_{\ov{R}}(\ov{\fm})=
+\begin{cases}
+\mu_R(\fm)-1, & x \notin \fm^2 \\
+\mu_R(\fm), & x \in \fm^2
+\end{cases}
+\]
+We also know that $\dim \ov{R}=\dim R-1$ since $x$ is not in any minimal prime. Then $\ov{R}$ is a regular local ring if and only if $\mu_{\ov{R}}(\ov{\fm})=\dim \ov{R}$ if and only if $\mu_{\ov{R}}(\ov{\fm})=\dim R-1$. Now if $x \in \fm^2$, then $\mu_R(\fm)=\dim R-1$. But we know that $\mu_R(\fm) \geq \htt \fm=\dim R$ by Krull's Principal Ideal Theorem. So we must have $x \in \fm^2$. Hence, $\mu_R(\fm)-1=\dim R-1$ so $R$ is regular too. The other direction is similar. \qed \\

@@ -1,0 +1,634 @@
+% !TEX root = ../../commutative_algebra.tex
+
+\newpage
+\section{Completions}
+
+\subsection{Inverse Limits}
+
+Let $(\Lambda,\leq)$ be a poset. Assume that $\Lambda$ is directed; that is, for any $\lambda, \mu$, there is a $\nu \in \Lambda$ such that $\lambda \leq \nu, \mu \leq \nu$. 
+
+\begin{ex}
+Any totally ordered set, such as $\N$, is a directed poset. Furthermore, any set of subsets (or submodules) of a set (module) is a directed poset by ordering by containment or reverse containment. 
+\end{ex}
+
+An inverse limit system over $\Lambda$ is a set of objects (rings, modules, et cetera) $\{X_\lambda\}_{\lambda \in \Lambda}$ and maps (arrows) $\{f_{\lambda,\mu} : X_\mu \to X_\lambda, \lambda \leq \mu\}$ such that $f_{\lambda,\lambda}=1_{X_\lambda}$ and for $\lambda \leq \mu \leq \nu$, we have the following commutative diagram
+\[
+\begin{tikzcd}
+X_\lambda & X_\mu \arrow[swap]{l}{f_{\lambda,\mu}} \\
+& X_\nu \arrow[swap]{u}{f_{\mu,\nu}} \arrow{ul}{f_{\lambda,\nu}} 
+\end{tikzcd}
+\]
+
+A candidate for an inverse limit of a system $\{X,f_{\lambda,\nu}\}$ is an object $X$ and maps $g_\lambda: X \to X_\lambda$ so that if $\lambda \leq \mu$ then the following diagram commutes
+\[
+\begin{tikzcd}
+X \arrow{r}{g_\lambda} \arrow[swap]{d}{g_\mu} & X_\lambda \\
+X_\mu \arrow[swap]{ur}{f_{\lambda,\mu}}
+\end{tikzcd}
+\]
+
+A candidate $\{X,g_\lambda\}$ is an inverse if it has a universal property: 
+ for all $X \in \text{obj } \mathcal{C}$ and morphisms $f_i: X \to M_i$ satisfying $\psi^j_i f_j=f_i$ for all $i \leq j$, there exists a unique morphism $\theta: X \to \plim M_i$ making the diagram commute
+\[
+\begin{tikzcd}
+\plim M_i  \arrow{dr}{\alpha_i} \arrow[swap,bend right = 50]{ddr}{\alpha_j} & & X \arrow[dotted,swap]{ll}{\theta} \arrow[swap]{dl}{f_i}  \arrow[swap,bend left=50]{ddl}{f_j} \\
+& M_i  & \\
+&  M_j   \arrow{u}{\varphi^j_i} & 
+\end{tikzcd}
+\]
+
+\begin{thmm}
+Inverse limits exist over directed posets. 
+\end{thmm}
+
+The construction of $\plim X_\lambda$ is a subject of $\prod_{\lambda \in \Lambda} X_\lambda$ and we think of this as tuples $(x_\lambda)_{\lambda \in \Lambda}$
+\[
+\plim X_\lambda \left\{ (x_\lambda) \in \prod_{\lambda \in \Lambda} X_\lambda \;|\;  x_\lambda=f_{\lambda, \mu}(x_\mu) \text{ for } \lambda \leq \mu \right\}
+\]
+
+\begin{ex}
+If $\Lambda=\N$ with the usual order $i \leq i+1$, then an inverse system is a sequence of objects $\{X_1,X_2,\cdots\}$ and maps $X_{i+k} \to X_i$ are determined by maps $X_{i+1} \to X_i$  via the commutating condition for inverse limits. The product $\prod_{i \in \N} X_i$ consists of sequences $(x_1,x_2,\cdots)$ with $x_i \in X_i$. Then we have
+\[
+\plim X_i= \{(x_1,x_2,\cdots)\;|\; x_i=f_{i,i+k}(x_{i+k}) \}=\{(x_1,x_2,\cdots,)\;|\; x_i=f_{i+1}(x_{i+1})\}
+\]
+We have the particular special case if all the maps $X_{i+1} \to X_i$ are surjective. Then we can build elements of the inverse limit system $\plim X_i$: choose $x_0$, then choose $x_1 \in f_{0,1}^{-1}(x_0)$, and so on. 
+\end{ex}
+
+\subsection{$I$-adic Completion}
+
+Take a ring $R$ and $I$ an ideal of $R$. For $t \in \N$ consider the quotient $R/I^t$. Since $I^t \supseteq I^{t+1}$, we get a surjective homomorphism 
+\[
+R/I^{t+1} \to R/I^t
+\]
+so $\{R/I^t\}_{t \in \N}$ is an inverse limit system. 
+
+\begin{dfn}[$I$-adic Completion]
+The $I$-adic completion of $R$ is 
+\[
+\co{R}{I} \defeq \plim R/I^t
+\]
+\end{dfn}
+
+The denotation $\co{R}{I}$ or just $\hat{R}$ if $I$ is understood. In particular, if $R$ is a local ring with maximal ideal $\fm$, then $\co{R}{\fm}$ is called \emph{the} completion of $R$. 
+
+\begin{dfn}[Cauchy Sequence]
+A sequence of elements of $R$, $r_0,r_1,\cdots$ is Cauchy with respect to an ideal $I$ if for $n \geq 0$, there is a $N \in \N$ such that if $i,j >N$, then $r_i-r_j \in I^t$. If $R$ is noetherian (so that Krull's Intersection Theorem holds) this is equivalent to the fact that $\{r_i\}$ is Cauchy with respect to the $I$-adic metric. 
+\end{dfn}
+
+\begin{dfn}[$C_I(R)$]
+Define $C_I(R)$ to be the set of Cauchy sequences in $R$ with respect to $I$. This forms a ring under componentwise addition and multiplication. In fact, it is an $R$-algebra with $R \to C_I(R)$ given by $r \mapsto (r,r,r,\cdots)$ - the constant sequence. Define $C^0_I(R) \subset C_I(R)$ to be the Cauchy sequences converging to 0:
+\[
+C^0_I(R)=\{(r_0,r_1,\cdots) \;|\; \forall t \geq 0, \exists N \text{ so that if } i >N, \text{ then }r_i \in I^t\}
+\]
+\end{dfn}
+
+\begin{prop}
+$C_I^0(R)$ is an ideal of $C_I(R)$.
+\end{prop}
+
+\noindent Proof: $C_I^0(R)$ is an ideal of $C_I(R)$. Define for each $t$ a map $C_I(R) \to R/I^t$ as follows: for any sequence $(r_0,r_1,\cdots) \in C_I(R)$ and fixed $t$, the image of $r_i$ in $R/I^t$ is eventually independent of $i$ (this is Cauchy-ness: if $j>i$, then $r_j-r_i \in I^t$ so $r_j \equiv r_i$ in $I^t$) so we send a sequence $(r_0,r_1,\cdots)$ to that stable value. 
+
+To show this map is onto, lift from $R/I^t$ to $R$ and its constant sequence. It is tedious to show that this is a ring homomorphism and that it kills $C_I^0(R)$ because its eventual value is $\ov{0}$. This gives a commutating triangle
+\[
+\begin{tikzcd}
+C_I(R) \arrow{r} \arrow{d} & R/I^t \\
+R/I^{t+1} \arrow{ur} & 
+\end{tikzcd}
+\]
+So $C_I(R)/C^0_I(R)$ is a candidate for $\plim R/I^t$. So we get a ring homomorphism $C_I(R)/C_I^0(R) \to \plim R/I^t$. We only need show that this is bijective to show that it is an isomorphism. Give any sequence $(\ov{r}_0,\ov{r}_1,\ov{r}_2,\cdots)$ in the inverse limit, $\plim R/I^t$, we lift each $\ov{r}_i$ arbitrarily to $R$ then the result is Cauchy (by definition of $\plim R/I^t$) and the difference between any two lifted sequences is in $C_I^0(R)$. \qed \\
+
+\begin{thmm}
+Let $R$ be a ring and $I \lhd R$. Then completion $\co{R}{I} \cong C_I(R)/C_I^0(R)$ and the kernel of the natural ring homomorphism $R \to \co{R}{I}$ is $\cap_{n \geq 0} I^n$. In particular, if $R$ is noetherian then $R \to \co{R}{I}$ is injective by the Krull Intersection Theorem if $I \subset \Jac R$. 
+\end{thmm}
+
+\begin{ex}
+Let $S$ be an arbitrary ring. Let $R=S[x_1,\cdots,x_n]$ with $I=(x_1,\cdots,x_n)R$. What is $\co{R}{I}$? Any element of $R/I^t$ can be represented as polynomials over $S$ of total degree at most $t-1$ of the $x_i$'s. So if a sequence $(\ov{f}_0,\ov{f}_1,\cdots)$ with $\ov{f}_i \in R/I^t$ represents an elements of the inverse limit, each $\ov{f}_t$ is the image of $\ov{f}_{t+k}$ under $R/I^{t+k} \to R/I^t$. In other words, the sum of the terms of degrees less than $t$ in $t+k$ is exactly $\ov{f}_t$. So if $n=1$, these look like $(s_0,s_0+s_1x,s_0+s_1x+s_2x^2,\cdots)$. So the limit is the power series $\sum_{i=0}^\infty s_ix^i$. We obtain a similar result for more than one variable: $\co{S[x_1,\cdots,x_n]}{(x_1,\cdots,x_n)}=S[[x_1,\cdots,x_n]]$. 
+\end{ex}
+
+In a sense, every example looks like this. Completing with respect to an ideal $I$ amounts to allowing power series in elements of $I$. Observe that if $R \ma{\phi} R'$ is a ring homomorphism and $I,I'$ are ideals of $R,R'$, respectively, with $I \to I'$, then we get an induced homomorphism $\co{R}{I} \ma{\ov{\phi}} \co{R'}{I'}$ as follows: take a Cauchy sequence $(r_0,r_1,\cdots)$ with respect to $I$, then the sequence $(\phi(r_0),\phi(r_1),\cdots)$ is Cauchy with respect to $I'$. Why? If $(r_0,r_1,\cdots,)$ is convergent to 0, then so too does $(\phi(r_0),\phi(r_1),\cdots)$. So $\ov{\phi}((r_0,r_1,\cdots)) \defeq (\phi(r_0),\phi(r_1),\cdots)$ works as a map. Even stronger, this induced homomorphism is functorial. Meaning, if $R_1 \ma{\phi_1} R_2 \ma{\phi_2} R_3$ with ideals $I_1,I_2,I_3$, receptively, mapping to each other, we get
+\[
+\begin{tikzcd}
+\co{R_1}{I_1} \arrow{r}{\ov{\phi_1}} \arrow[swap]{d}{\ov{\phi_2\phi_1}} & \co{R_2}{I_2} \arrow{dl}{\ov{\phi_2}} \\
+\co{R_3}{I_3} & 
+\end{tikzcd}
+\]
+As a special case, if $\phi: R \to R'$ is surjective and $\phi(I)=I'$, then the induced homomorphism $\ov{\phi}$ is also surjective. 
+
+\begin{prop}
+Let $R$ be a noetherian ring and an ideal $I$ be generated by $a_1,\cdots,a_n$, then 
+\[
+\co{R}{I} \cong R[[x_1,\cdots,x_n]]/(x_1-a_1,\cdots,x_n-a_n)
+\]
+\end{prop}
+
+\noindent Proof: Define $\phi: R[x_1,\cdots,x_n] \to R$ via $x_i \mapsto a_i$, then $\ker \phi$ is the given ideal: $\ker \phi=(x_1-a_1,\cdots,x_n-a_n)R[x_1,\cdots,x_n]$ so that we get $\ov{\phi}: \co{R[x_1,\cdots,x_n]}{(x_1,\cdots,x_n)} \to \co{R}{I}$ with kernel $(x_1-a_1,\cdots,x_n-a_n)R[[x_1,\cdots,x_n]]$. \qed \\
+
+\begin{cor}
+If $R$ is noetherian, so too is $\co{R}{I}$ is noetherian for all ideals $I$.
+\end{cor}
+
+By a variant of the Hilbert Basis Theorem, $R[[x]]$ is noetherian so that $\co{R}{I}$ is noetherian also. \qed \\
+
+But why go through this process of completion? Well, the $\fm$-adic completion of a local ring $(R,\fm)$ is better because we get three important properties: Hensel's Lemma, Krull-Remack-Schmidt, and Cohen's Structure Theorem. We shall sketch proofs of both of these to varying levels. 
+
+\begin{dfn}[Hensel's Lemma]
+We say that a noetherian local ring $(R,\fm,k)$ satisfies Hensel's Lemma if for any monic polynomial $F(x) \in R[x]$ and any factorization mod $\fm$, $\ov{F}(x)=g(x)h(x)$ in $k[x]$ -- $k=R/\fm$ -- with $g(x),h(x)$ monic polynomials with $(g,h)=(1)$, there are monic polynomials $G,H \in R[x]$ with $\ov{G}=g,\ov{H}=h$, and $F=GH$. 
+\end{dfn}
+
+\begin{thmm}
+Complete noetherian local rings $(R,\fm,k)$ satisfy Hensel's Lemma. 
+\end{thmm}
+
+\noindent Proof: Let $n=\deg F$, $r=\deg g$, and $n-r=\deg h$. We shall inductively construct $G_i(x)$ and $H_i(x)$ in $R[x]$ such that they are both monic with degree $r,n-r$, respectively. 
+\begin{itemize}
+\item $\ov{G}_i=g, \ov{H}=h$ in $k[x]$
+\item $F \equiv G_iH_i$ mod $\fm^i[x]$.
+\item This is unique: if $\ov{G}'_i=g,\ov{H}_i'=h$, and $F=G_i'H_i'$ mod $\fm^i[x]$, then $G_i \equiv G_i$ and $H_i' \equiv H_i$ modulo $\fm^i[x]$. 
+\end{itemize}
+
+Suppose we have shown the above. We shall show that the sequences of coefficients of $G_i$'s and $H_i$'s are Cauchy and so that $G,H$ have the desired properties. 
+
+First, we show that the coefficients are Cauchy. If $i<j$, then $F \equiv G_jH_j \mod \fm^j [x]$ if and only if $F-G_jH_j \in \fm^j[x] \subset \fm^i[x]$ so that $F \equiv G_jH_j \mod \fm^i[x]$. By uniqueness, we have $G_i \equiv G_j$, $H_i \equiv H_j$ modulo $\fm^i[x]$ so that the sequences of coefficients are Cauchy. 
+
+Now let $G(x),H(x)$ be the limits and write $G(x)=x^r+a_{r-1}x^{r-1}+\cdots+a_0$ and $H(x)=x^{n-r}+b_{n-r-1}x^{n-r-1}+\cdots+b_0$. Then $G \equiv G_j$ and $H \equiv H_j$ modulo $\fm^j[x]$ for all $j$. In particular, $\ov{G}=g$ and $\ov{H}=h$ modulo $\fm[x]$. We need to show that this product is the proper thing, i.e. $GH=F$. We look at the difference of the coefficients of $GH$ and $G_kH_k$: $(GH)_i-(G_\alpha H_\alpha)_i$
+\[
+\sum_{j=0}^i a_jb_{i-j} - \sum_{j=0}^i a_{kj} b_{k,i-j}= \sum a_j+b_{i-j}+a_{ki}b_{i-j}-a_{k,i}b_{i-j}-a_{kj}b_{k,-ij}=\sum (a_j-a_{k,j})b_{i-j} + (b_{i-j}-b_{k,i-j})a_{kj} 
+\]
+but $a_j-a_{kj} \in \fm^k$ and $b_{i-j}-b_{k,-ij} \in \fm^k$. So this is in $\fm^k$ so the sequence $G_kH_k \to GH$ coefficentwise. Then $F_i-(GH)_i=F_i-(G_kH_k)_i+(G_kH_k)_i-(GH)_i$. But $F_i-(G_kH_k)_i \in \fm^k$ and $(G_kH_k)_i-(GH)_i \in \fm^k$ for all $k$. Thus the coefficients of $F-GH$ are in $\cap_{k \geq 0} \fm^k=(0)$ (this is $(0)$ since $R$ is assumed noetherian so that Krull's Intersection Theorem applies). 
+
+Now we need show that we can construct such things. Lift $g,h \in k[x]$ arbitrarily to $G_1,H_1 \in R[x]$ monic with degree $r,n-r$, respectively. Then $\ov{G}_1=g$ and $\ov{H}_1=h$ in $k[x]$ and since $gh=\ov{F}$, we have $F \equiv G_1H_1 \mod \fm[x]$. Suppose we have constructed up to $k$. Then we have $G_kH_k$ with $u_k(x),v_k(x)$ so that $u_k,v_k \in \fm^k[x]$ with $\deg u_k<r$ and $\deg v_k<n-r$. and so that $G_{k+1}(x)=G_k(x)+u_k(x)$ and $H_{k+1}(x)=H_k(x)+v_k(x)$ work. Now since $\gcd(g,h)=1$ in $k[x]$, we can find $p(x),q(x) \in R[x]$ so that $1=\ov{p}(x)g(x)+\ov{q}(x)h(x)$ in $k[x]$. But then $pG_k+qH_k \equiv 1 \mod \fm[x]$. 
+
+Let $\Delta_k=F-G_kH_k \in \fm^k[x]$ by induction and $\deg \Delta_k <n$ since these are all monic. Then $\Delta_k \equiv \Delta_k(pG_k+qH_k) \mod \fm^{k+1}[x]=v_k(x)G_k(x)+u_k(x)H_k(x) \mod \fm^{k+1}[x]$. We may assume, since we are using the division algorithm for monic polynomials over $R/\fm^{k+1}$, that $\deg v_k<n-r$ and $\deg u_k<r$. Set $G_{k+1}=G_k+u_k$ and $H_{k+1}=H_k+v_k$ monic of the degree degrees. We need to check that $G_{k+1}H_{k+1} \equiv F \mod \fm^{k+1}[x]$. and $\ov{G}_{k+1}=g$ and $\ov{H}_{k+1}=h$ (which follows from the equivalences of $\Delta_k$ above). For uniqueness, this is an induction argument which occupies about 2 pages. \qed \\
+
+\begin{ex}
+As a non-example, take $R=\Z_{(7)}$ and $F(x)=x^2-2 \in R[x]$. Module the maximal ideal $(7)$, we have $\ov{F}(x)=x^2-\ov{2}=x^2-\ov{9}=(x-\ov{3})(x+\ov{3})$. But if the factorization lifted to $R$, then $F$ would have a root in $\Z_{(7)} \subseteq \Q$, a contradiction. 
+\end{ex}
+
+\begin{ex}
+As another non-example, let $R=k[t]_{(t)}$ and $F(x)=x^2-t^3-t^2=x^2-t^2(t+1)$. Modulo $(t)$, this factors as $\ov{F}(x)=x^2$ but if $F$ factored, $R$ would contain $\sqrt{t+1}$ but it does not because of degree considerations. 
+\end{ex}
+
+\begin{ex}
+Let $R=\Z_{(7)}$ and $\fm=(7)$. Then $\hat{R} \cong R[[x]]/(x-7)$. So in other words, ``power series in 7". Its elements are power series $a_0+a_17+a_27^2+\cdots$ with $a_k \in \Z$ and $0 \leq a_k<7$. We know that by Hensel's Lemma that $f(x)=x^2-2$ has a root in $\hat{R}$. In fact, we can write it down: $\sqrt{2}=3+1\cdot 7+2 \cdot 7^2+ 6 \cdot 7^3+\cdots$. Why? Partial sums differ from a root of $F$ by big powers of 7 and $(3+1 \cdot 7)(3+1 \cdot 7)=9+6 \cdot 7+1 \cdot 7^2=2+2 \cdot 7^2 \in (7)^2$.
+\end{ex}
+
+\begin{ex}
+Set $R=\C[x,y]/(y^2-x^3-x^2)$. This gives the node. We know that $R$ is a domain since $y^2-x^3-x^2$ does not factor in $\C[x,y]$. If we complete at $\fm=(x,y)$, we get $\hat{R}=\C[x,y]/(y^2-x^3-x^2)$ and $x+1$ does not have a square root
+\[
+\sqrt{x+1}=1+\frac{1}{2} x-\frac{1}{8} x^2+\frac{1}{16} x^3-\frac{5}{32} x^4+ \cdots
+\]
+In particular, $\hat{R}$ is \emph{not} a domain. Completing zooms in at $(0,0)$ and we then see not one piece but two. We have $\hat{R} \cong \C[[u,v]]/(uv)$, where $u=y-x\sqrt{x+1}$ and $v=y+x\sqrt{x+1}$. 
+\end{ex}
+
+\begin{dfn}[Krull-Remack-Schmidt Property]
+Let $\Lambda$ be a ring (not necessarily commutative). Say $\Lambda$ satisfies the Krull-Remack-Schmidt Proposition, if 
+\begin{enumerate}[(i)]
+\item Every left finitely generated $\Lambda$-module is a direct sum of indecomposable modules.
+\item If $M=M_1\oplus \cdots \oplus M_r \cong N_1 \oplus \cdots \oplus N_s$ for indecomposable $\Lambda$-modules $M_i,N_j$, tehn $r=s$ and after possible permutation $M_i \cong N_i$ for all $i$. 
+\end{enumerate}
+\end{dfn}
+
+\begin{prop}
+Let $(R,\fm)$ be a local ring satisfying Hensel's Lemma. Then $R$ has the KRS property. 
+\end{prop}
+
+\begin{ex}
+As a non-example, let $R=k[x,y]$, where $k$ is a field. Let $\fm=(x,y), \nu=(x-1,y)$. Then $\fm+\nu=R$ (as it has $x$ and $x-1$). So we get a short exact sequence
+\[
+0 \ma{} \fm \cap \nu \ma{} \fm \oplus \nu \ma{} R \ma{} 0
+\]
+where the final map is given by $(a,b) \mapsto a+b$ (or $a-b$). We know that $R$ is projective (as $R$ is free) so the sequence splits: $\fm \oplus \nu \cong R \oplus (\fm \cap \nu)$ but neither is free so that KRS property fails. 
+\end{ex}
+
+\begin{rem}
+There are even examples of KRS failing over local rings. 
+\end{rem}
+
+\begin{cor}
+Complete noetherian local rings have the KRS property. 
+\end{cor}
+
+\begin{cor}
+Artinian local rings have the KRS property.
+\end{cor}
+
+\noindent Proof: Let $(R,\fm)$ be artinian. Then $J(R)=\fm$ is nilpotent so $\fm^t=0$. Then $\co{R}{\fm}=\plim R/\fm^t=R$. So artinian local rings are complete and noetherian. This then follows by the previous corollary. \qed \\
+
+We have a nice structure theorem for complete local noetherian local rings.
+
+\begin{dfn}
+Let $(R,\fm,k)$ be a local ring.
+\begin{enumerate}[(i)]
+\item If $\ch R=\ch k$, $R$ is said to be equicharacteristic.
+\item If $\ch R \neq \ch k$, $R$ is said to be mixed characteristic. In this situation, if $\ch R=0$ and $\ch k=p>0$. Then
+\begin{enumerate}[(a)]
+\item If $p \in \fm^2$, then $R$ is said to be ramified. 
+\item If $p \in \fm \setminus \fm^2$, $R$ is said to be unramified. 
+\end{enumerate}
+\end{enumerate}
+\end{dfn}
+
+\begin{ex}
+We have $R=\Q[[x_1,\cdots,x_n]], \F_p[[x_1,\cdots,x_n]], k[[x_1,\cdots,x_n]]$ as examples of an equicharacteristic ring. An examples of a unramified $R$, we have $\Z_{(p)}[[x_1,\cdots,x_n]], \co{\Z_{(p)}}{}$. As an of a ramified $R$, we have $\Z_{(p)}[[x]]/(x^2-p)$.
+\end{ex}
+
+\begin{thmm}[Cohen's Structure Theorem -- 1946]
+Let $(R,\fm,k)$ be a complete regular local ring of dimension $d$. If $R$ is equicharacteristic then $R \cong k[[x_1,\cdots,x_d]]$ (so $R$ contains a copy of its own residue field). If $R$ is unramified, $R \cong V[[x_1,\cdots,x_d]]$ for some $V$, where $V$ is a one-dimensional complete regular local ring with maximal ideal generated by $p=\ch k$ ($V$ is a DVR -- a discrete valuation ring). Finally, if $R$ is ramified then $R \cong V[[x_1,\cdots,x_{d+1}]]/(f)$, where $V$ is as above and $f$ is a polynomial with nonzero constant term. 
+
+Furthermore, any complete local noetherian ring is a homomorphic image of a complete regular local ring. 
+\end{thmm}
+
+\begin{cor}
+Complete noetherian local rings are catenary, i.e. saturated chains of primes between any two fixed primes have the same length. 
+\[
+\dim R/p + \htt p= \dim R \;\;\;\;\; \forall p \in \spec R
+\]
+\end{cor}
+
+\subsection{Completing Modules}
+
+Let $R$ be a commutative ring with $I \lhd R$ an ideal. Let $M$ be an $R$-module. Recall that $C_I(R)$ is the set of Cauchy sequences of $R$ with respect to $I$. We define
+\[
+C_I(M)=\{(u_0,u_1,\cdots)\;|\; \forall t, \exists N \in \N \text{ such that } i,j>N, \text{ then }u_i-u_j \in I^tM\}
+\]
+This is a module over $C_I(R)$ under componentwise operations. Set $C_I^0(M)$ to be the set of Cauchy sequences that converge to 0, i.e.
+\[
+C_I^0(R)=\{(u_0,u_1,\cdots) \;|\; \forall t, \exists N \in \N \text{ such that }i>N, u_i \in I^tM\}
+\]
+This is a submodule of $C_I(R)$ and $\co{M}{I} \cong C_I(M)/C_I^0(M)$ is a module over $\co{R}{I} \cong C_I(R)/C_I^0(M)$. We could also define $\co{M}{I}= \plim M/I^tM$. We can then, as before, think of elements of $\co{M}{I}$ as sequences $(u_0,u_0+u_1,u_0+u_1+u_2,\cdots)$ with $u_t \in I^tM$ by passing to a subsequence of an arbitrary representative. 
+
+Observe that completion is a functor from finitely generated $R$-mod to finitely generated $\co{R}{I}$-mod. If $f: M \to N$ is a $R$-homomorphism, then we obtain $C_I(f): C_I(M) \to C_I(N)$ given by $\{u_i\} \mapsto \{f(u_i)\}$. Then this morphism takes $C_I^0(M)$ into $C_I^0(N)$ so that we get an induced homomorphism $\hat{f}: \co{M}{I} \to \co{N}{I}$. 
+
+\begin{prop}
+Completion is an exact functor. That is, if 
+\[
+0 \ma{} A \ma{f} B \ma{g} C \ma{} 0
+\]
+is a short exact sequence of finitely generated $R$-modules, then
+\[
+0 \ma{} \co{A}{I} \ma{\hat{f}} \co{B}{I} \ma{\hat{g}} \co{C}{I} \ma{} 0
+\]
+is a short exact sequence of finitely generated $\hat{R}$-modules. 
+\end{prop}
+
+\noindent Proof: First, we show that $\hat{g}$ is surjective. Let $w \in \hat{C}$ be represented by $(w_0,w_0+w_1,\cdots)$ with $w_t \in I^tC$. Since $g: B \to C$ is onto, $I^tB$ maps onto $I^tC$ so that we can lift each $w_t$ to $v_t \in I^tB$. But then $(v_0,v_0+v_1,\cdots)$ is a Cauchy sequence in $B$ mapping to $w$. Now we show $\im \hat{f} \subseteq \ker \hat{g}$. We know that $\hat{g} \circ \hat{f}$ is defined by applying $g \circ f$ to each component of a Cauchy sequence. But $g \circ f=0$ so $\hat{g} \circ \hat{f}=0$. Observe that what we have done thus far has \emph{not} made use of noetherian or finitely generated. 
+
+To see that $\hat{f}$ is injective, take $u \in \hat{A}$ and suppose $\hat{f}(u)=0$, where $u=(u_0,u_0+u_1,\cdots)$. Then the sequence $(f(u_0),f(u_0)+f(u_1),\cdots)$ is Cauchy in $B$ and converges to 0. But $(f(u_0),f(u_0)+f(u_1),\cdots)$ is contained in $f(A)$ so that this is Cauchy in $f(A)$ by the Artin-Rees Lemma. So $u=0$ as $f$ is injective. Finally, we need show $\ker \hat{g} \subseteq \im \hat{f}$. First, identify $A$ with its image in $B$ and $C=B/A$. Let $v \in \hat{B}$ map to 0 in $\hat{B/A}$. We will show that $v$ is represented by a sequence in $A$ so $v \in \hat{A}$. Write $v=(v_0,v_1,v_2,\cdots)$ with $v_{t+1}-v_t \in I^tB$ (by possibly passing to a subsequence if necessary). Since $v$ maps to 0 in $\hat{B/A}$, the sequence $(\ov{v}_0,\ov{v}_1,\ov{v}_2,\cdots)$, as elements in $B/A$, converges to 0. By possibly passing to a subsequence, we may assume $\ov{v}_t \in I^t(B/A)=\frac{I^tB+A}{A}$. So $v_t \in I^tB+A$. Write $v_t=z_t+a_t$ with $z_t \in I^tB$ and $a_t \in A$. Then the sequence $\{a_t\}$ is Cauchy with the same limit as $\{v_t\}$ since the difference is in $I^tB$. Then the sequence $(a_0,a_1,\cdots)$ represents $v$ and $v \in \hat{A}$. \qed \\
+
+\begin{cor}
+If $M$ is finitely generated over $R$, then $\co{M}{I}$ is finitely generated over $\co{R}{I}$ [Note: as commented in the previous proof, this does \emph{not} make use of $R$ noetherian.]
+\end{cor}
+
+\noindent Proof: Simply complete the surjection $R^n \to M \to 0$. \qed \\
+
+\begin{rem}
+There is a natural $R$-linear map $M \to \co{M}{I}$ given by $u \mapsto (u,u,\cdots)$ with $\ker= \cap_{t \geq 0} I^tM$. So $M \to \hat{M}$ is injective if $M$ is finitely generated and $I \subseteq J(R)$ by Krull's Intersection Theorem. 
+\end{rem}
+
+We say that $M$ is $I$-adically separated if $\cap_{t \geq 0} I^tM=0$. The map $m \to \co{M}{I}$ induces a $\co{R}{I}$-linear map $M \otimes_R \co{R}{I} \to \co{M}{I}$ via $u \otimes r_t \mapsto r_tu$.
+
+\begin{prop}
+This map is an isomorphism if $R$ is noetherian and $M$ is finitely generated.
+\end{prop}
+
+\noindent Proof: First, notice if $M=R$ then $R \otimes_R \hat{R} \to \hat{R}$, given by $r \otimes r_t \mapsto rr_t$, is an isomorphism. Furthermore, completion respects direct sums: $\hat{A \oplus B}=\hat{A} \oplus \hat{B}$: $((a_0,b_0),\cdots) \mapsto ((a_0,\cdots),(b_0,\cdots))$. But then the map $R^n \otimes_R \hat{R} \to \hat{R}^n$ is also an isomorphism. Let $M$ be an arbitrary finitely presented (as $R$ is noetherian) so we can write 
+\[
+R^m \ma{} R^n \ma{} M \ma{} 0
+\]
+Then we get a diagram 
+\[
+R^m \otimes \hat{R} \ma{} R^n \otimes_R \hat{R} \ma{} M \otimes_R \hat{R} \ma{} 0
+\]
+
+\[
+\begin{tikzcd}
+R^m \otimes \hat{R} \arrow{d} \arrow{r} & R^n \otimes_R \hat{R} \arrow{r} \arrow{d} & M \otimes_R \hat{R} \arrow{r} \arrow{d} & 0 \\
+\hat{R}^m \arrow{r} & \hat{R}^n \arrow{r} & \hat{M} \arrow{r} & 0
+\end{tikzcd}
+\]
+The top row is still exact since the tensor product is right exact. The bottom row is right exact as completion is an exact functor. The squares commute so the first and second vertical maps are isomorphisms and therefore the map $M \otimes_R \hat{R} \to \hat{M}$ is an isomorphism. \qed \\
+
+\begin{rem}
+This is true even if $M$ is not finitely generated. To prove this, write $M$ is a direct limit of finitely generated submodules and use the fact that the tensor product commutes with direct sums. 
+\end{rem}
+
+\begin{cor}
+If $R$ is noetherian and $I\lhd R$, then $\co{R}{I}$ is a flat $R$-algebra. In the case where $(R,\fm)$ is local and $I=\fm$, $\hat{R}$ is faithfully flat, i.e. flat and if $M \otimes_R \hat{R} \to 0$ then $M=0$.
+\end{cor}
+
+\noindent Proof: The second part follows from an assigned exercise if $M$ is finitely generated or $M$ injects to $\co{M}{I}$. \qed \\
+
+The most important special case is if $(R,\fm)$ is a noetherian local ring and $\hat{R}$ is the $\fm$-adic completion. 
+
+\begin{prop} We have the following properties:
+\begin{enumerate}[(i)]
+\item $\hat{R}$ is a local ring with maximal ideal $\hat{\fm}=\fm \hat{R}$. In particular, $(\hat{\fm})^n=\fm \hat{R}$ for all $n$. 
+\item For any $I \lhd R$, we have $\hat{I}=I \hat{R}$. In particular, we have $\hat{I}=I \hat{R}$ an ideal of $\hat{R}$.
+\item There is a bijection between $\fm$-primary ideals and $\hat{\fm}$-primary ideals of $\hat{R}$ given by $I \to I\hat{R}$ and $J \to J \cap R$. 
+\end{enumerate}
+\end{prop}
+
+\noindent Proof: 
+\begin{enumerate}
+\item[(ii)] We have an injective homomorphism $I \to R$. This induces a commutative triangle
+\[
+\begin{tikzcd}
+I \otimes_R \hat{R} \arrow{r} \arrow{d} & R \otimes_R \hat{R}=\hat{R} \\
+\hat{I} \arrow{ur} & 
+\end{tikzcd}
+\]
+with two sides injective by the exactness of the completion. The third side is an isomorphism. Then the image of $I \otimes_R \hat{R}$ in $\hat{R}$ is $I \hat{R}$ so the image of $\hat{I}$ in $\hat{R}$ is also $I \hat{R}$. 
+
+\item[(i)] Complete the short exact sequence 
+\[
+0 \ma{} \fm \ma{} R \ma{} k \ma{} 0
+\]
+where $k=R/\fm$ to get 
+\[
+0 \ma{} \hat{\fm} \ma{} \hat{R} \ma{} \hat{k} \ma{} 0
+\]
+But $\hat{k}=\hat{R/\fm}=\plim k/\fm^t k=k$. It then follows that $\hat{\fm}$ is a maximal ideal of $\hat{R}$. Notice that $\hat{\fm} \cap R=\fm \hat{R} \cap R$ contains $\fm$ but $\fm$ is maximal in $R$ so that we must have $\hat{\fm} \cap R=\fm$. But why is $\hat{\fm}$ the only maximal ideal of $\hat{R}$? Take $x \in \hat{R}$, say $x=(x_0,x_0+x_1,x_0+x_1+x_2,\cdots)$, where $x_t \in \fm^t$ for all $t$. Then $x \notin \hat{\fm}$ if and only if $x_0 \notin \fm$. Then $x_0$ is a unit so that $x_0+x_1$ is a unit, and so forth. Then $x_0+\cdots+x_t \notin \fm$ for all $t$. But then every entry of $x$ is a unit in $R$ so that $x$ is a unit in $\hat{R}$. But then the non-units form an ideal ($\hat{\fm}$ contains all non-units) so $\hat{R}$ is local. 
+
+\item[(iii)] Observe that $I$ is $\fm$-primary if and only if $\sqrt{I}=\fm$ if and only if $\fm^n \subseteq I$ for some $n$. Then $\fm^n$ kills $R/I$, i.e. $\fm^n(R/I)=0$. So completing $R/I$,
+\[
+\hat{R/I}= \plim \frac{R/I}{\fm^t(R/I)}=R/I
+\]
+But then when we complete the short exact sequence
+\[
+0 \ma{} I \ma{} R \ma{} R/I \ma{} 0
+\]
+we get
+\[
+0 \ma{} \hat{I} \ma{} \hat{R} \ma{} R/I \ma{} 0
+\]
+which means $\hat{R}/\hat{I} \cong R/I$ and so 
+\[
+\hat{\fm}^n(\hat{R}/\hat{I})=\fm^n(\hat{R}/\hat{I})=\fm^n(R/I)=0
+\]
+so $\hat{I}$ is $\hat{\fm}$-primary ideal of $\hat{R}$. On the other hand, if $J$ is $\hat{\fm}$-primary, then $\hat{\fm}^n \subseteq J$ for some $n$. Then $\hat{\fm}^n \cap R \subseteq J \cap R$. We know that $\hat{\fm}^n \subseteq J \cap R$ so $J \cap R$ is $\fm$-primary. But then the $\fm$-primary ideals of $R$ containing $\fm^n$ correspond to the ideals of $R/\hat{\fm}^n$ which correspond to the ideals of $\hat{R}/\hat{\fm}^n$ which correspond to the $\hat{\fm}$-primary ideals of $\hat{R}$ containing $\hat{\fm}^n$. 
+\end{enumerate}
+\qed \\
+
+We want to show that $\dim R=\dim \hat{R}$ for a local ring $R$. However, to show this we will need to digress to more theory. 
+
+\subsection{Flatness}
+
+Recall that an $R$-module $M$ is flat if $M \otimes_R -$ is an exact functor. 
+
+\begin{dfn}[Flat Morphism]
+If $\phi: R \to S$ is a ring homomorphism, we say that $\phi$ is flat (or $S$ is a flat $R$-algebra homomorphism) if $S$ is flat as an $R$-module. 
+\end{dfn}
+
+\begin{lem}
+Let $R$ be a ring. 
+\begin{enumerate}[(i)]
+\item If $M$ is a flat $R$-module and $N_1,N_2 \leq N$ are submodules of a $R$-module $N$, then
+\[
+(N_1 \otimes_R M) \cap (N_2 \otimes_R M)=(N_1 \cap N_2) \otimes_R M
+\]
+as a submodule of $N \otimes_R M$.
+\item If $\phi: R \to S$ is flat and $I_1,I_2 \unlhd R$ are ideals, then 
+\[
+I_1 S \cap I_2 S = (I_1 \cap I_2)S
+\]
+\end{enumerate}
+\end{lem}
+
+\noindent Proof: 
+\begin{enumerate}[(i)]
+\item Define $N \ma{f} N/N_1 \oplus N/N_2$ by $x \mapsto (\ov{x},\ov{x})$. Then for $f$, we have $\ker f = N_1 \cap N_2$. This gives an exact sequence
+\[
+0 \ma{} N_1 \cap N_2 \ma{} N \ma{} N/N_1 \oplus N/N_2
+\]
+Tensoring with $M$ is still exact
+\[
+0 \ma{} (N_1 \cap N_2) \times_R M \ma{} N \otimes_R M \ma{f \otimes 1} N/N_1 \otimes_R M \oplus N/N_2 \otimes_R M
+\]
+But then we have $\ker f \otimes 1=(N_1 \cap N_2) \otimes_R M=(N_1 \otimes M) \cap (N_2 \otimes_R M)$.
+
+\item Notice that for any ideal of $R$, we have the exact sequence
+\[
+0 \ma{} I \ma{} R \ma{} R/I \ma{} 0
+\]
+Tensoring with $S$ gives an exact sequence of $S$-modules
+\[
+0 \ma{} I \otimes_R S \ma{} R \otimes_R S \ma{} R/I \otimes_R S \ma{} 0
+\]
+But this is precisely 
+\[
+0 \ma{} I \otimes_R S \ma{} S \ma{} S/IS \ma{} 0
+\]
+So analyzing kernels gievs $I \otimes_R S \cong IS$. The result then follows by applying (i) with $M=S$. 
+\end{enumerate}
+\qed \\
+
+\begin{ex}
+Let $R=k[t^2,t^3] \subseteq S=k[t]$. Then what is $t^2 R \cap t^3R$? Well, we know that $t^2R=\langle t^2,t^4,t^5,\cdots \rangle$ and $t^3R=\langle t^3,t^5,t^6,\cdots \rangle$. But then $t^2R \cap t^3R=\langle t^5,t^6,t^7$ so that $(t^2R \cap t^3R)S=t^5S$. On the other hand, $t^2S \cap t^3S=t^3S$ so that $\phi: R \to S$ is not a flat morphism. 
+\end{ex}
+
+Recall that a flat $R$-moudle $M$ is faithfully flat if $M \otimes_R N \neq 0$ for all $N \neq 0$ (this is slightly nonstandard). 
+
+\begin{prop}
+The following are equivalent for a flat $R$-module $M$:
+\begin{enumerate}[(i)]
+\item $M$ is faithfully flat
+\item $M \otimes_R R/\fm \neq 0$ for all maximal $\fm$ of $R$
+\item $\fm M \neq M$ for all maximal $\fm$ of $R$
+\item For any $R$-linear $f: A \to B$, if $1 \otimes f: M \otimes_R A \to M \otimes_R B$ is injective then $f$ is injective. [This is the usual definition of faithfully flat.]
+\end{enumerate}
+\end{prop}
+
+\noindent Proof: 
+\begin{enumerate}[(i)]
+\item[(i) $\to$ (ii):] Take $N=R/\fm$.
+\item[(ii) $\to$(iii):] $M \otimes_R R/\fm=M/\fm M$.
+\item[(iii) $\to$(i):] Since $N \neq 0$, take $x \in N \setminus \{0\}$. Let $\fm$ be the maximal ideal containing $\ann_R(x)$. Then $\ann_R(x)M \subseteq \fm M \neq M$ by assumption. So $M \otimes_R R/\ann_r(x) \neq 0$. But $R/\ann_R(x) \cong Rx \leq M$ via the map $1 \mapsto x$. So $M \otimes_R Rx\neq 0$ and $M \otimes_R Rx \subseteq M \otimes_R N$ by flatness so $M \otimes_R N \neq 0$. 
+\item[(i)$\to$(iv):] Let $f: A \to B$ be given. Set $N=\ker f$. Then we have the exact sequence
+\[
+0 \ma{} N \ma{} A \ma{f} B
+\]
+Tensoring with $M$ preserves exactness
+\[
+0 \ma{} M \otimes_R N \ma{} M \otimes_R A \ma{1 \otimes f} M \otimes_R B
+\]
+If $1 \otimes f$ is injective, then $M \otimes_R N=0$ so that $N=0$ by faithfulness so that $f$ is injective. 
+\item[(iv)$\to$(i):] If $M \otimes_R N=0$ for some $N$. Consider $f: N \to 0$. Then $1 \otimes f: M \otimes_R N \to M \otimes_R 0$ is injective so that $f$ is injective so that $N=0$. 
+\end{enumerate}
+\qed \\
+
+\begin{cor}
+Let $(R,\fm)$ and $(S,\eta)$ be local rings and $\phi: R \to S$ be a local ring homomorphism (that is, $\phi(\fm) \subseteq \eta$). Then $S$ is flat over $R$ if and only if $S$ is faithfully flat over $R$.
+\end{cor}
+
+\noindent Proof: $\fm S \subseteq \eta S \neq S$ so that we are done by (iii). \qed \\
+
+\begin{prop}
+Let $\phi: R \to S$ be a faithfully flat ring map. Then
+\begin{enumerate}[(i)]
+\item $_R M \to M \otimes_R S$ given by $x \mapsto x \otimes 1$ is injective. In particular, if $M=R$ then $\phi$ is injective. 
+\item For all $I \unlhd R$, we have $IS \cap R=I$.
+\end{enumerate}
+\end{prop}
+
+\noindent Proof: \\
+\begin{enumerate}[(i)]
+\item Take $0 \neq x \in M$. Then $Rx \leq M$. By faithfulness (as it preserves injections), we have $Rx \otimes_R S \leq M \otimes_R S$. But $Rx \otimes_R S=(x \otimes 1)S$. We know that $Rx \otimes_R S \neq 0$ by faithfulness so $x\otimes 1 \neq 0$. 
+\item We apply (i) to $M=R/I$. We have $R/I \to R/I \otimes_R S=S/IS$ is injective. We know that the kernel of 
+\[
+R \to R/I \to R/IS
+\]
+is $I$ and is also $IS \cap R$. 
+\end{enumerate}
+\qed \\
+
+\begin{rem}
+Note that (ii) almost shows that if $\phi: R \to S$ is faithfully flat, then $\phi^\#: \spec S \to \spec R$ given by $q \mapsto q \cap R$ is surjective. However, this fails because extending prime ideals to a prime ideal is not necessarily prime....well, it is true but we need more to show it. 
+\end{rem}
+
+\begin{lem}
+Let $R$ be a ring and $U$ a multiplicatively closed set. Let $M,N$ be $R_U$-modules. Then $M\times_{R_U} N =M \otimes_R N$. [We also have $M \otimes_{R/I} N=M\otimes_R N$ if $M,N$ are $R/I$-modules.]
+\end{lem}
+
+\noindent Proof: We know that being $R_U$-bilinear certainly implies $R$-bilinear. It remains to show for $x \otimes y \in M \otimes_R N$ and $r/u \in R_U$, then $\frac{r}{u}x \otimes y=x \otimes \frac{r}{u} y$. But this is routine
+\[
+\frac{r}{u} x \otimes y= \frac{r}{u} x \otimes \frac{u}{u} y=rx \otimes \frac{1}{u} y= x \otimes \frac{r}{u} y
+\]
+\qed \\
+
+\begin{thmm}
+If $\phi: R \to S$ is a map and $M$ is left $S$-module, the following are equivalent:
+\begin{enumerate}[(i)]
+\item $M$ is flat over $R$ as an $R$-module
+\item $M_q$ is an $R_p$-module for all $q \in \spec S$ with $p=q \cap R$
+\item $M_\eta$ is a $R_\fm$-module for all maximal $\eta \in \spec S$ with $\eta=\fm \cap R$
+\end{enumerate}
+Note that this shows flatness is a local property. 
+\end{thmm}
+
+\noindent Proof: \\
+\begin{enumerate}
+\item[(i) $\to$(ii):] Let $q \in \spec S$ and $p=q \cap R$. Then we have $\frac{\phi}{1}: R_p \to S_q$ via $\frac{r}{u} \mapsto \frac{\phi(r)}{\phi(u)}$ as $u \notin p$ then $\phi(u) \notin q$. So $M_q$ is a $S_q$-module hence an $R_p$-module via $\frac{\phi}{1}$. Then $- \otimes_{R_p} M_q$ makes sense. Then on $R_p$-modules using the previous lemma, we have $- \otimes_{R_p} M_q= - \otimes_R M_q=(-\otimes_R M) \otimes_S S_q$, which is a composition of two exact functors so that $M_q$ is flat over $R_p$. 
+\item[(ii)$\to$(iii):] This is obvious. 
+\item[(iii)$\to$(i):] Assume that $M_q$ is $R_p$-flat for maximal ideals $q \subseteq S$. Let $f: A \to B$ be an injective homomorphism of $R$-modules. We want to show that $1 \otimes f: A \otimes_R M \to B\otimes_R M$ is injective. Let $K=\ker f \otimes 1$. We will show that $K=0$. We have the exact sequence
+\[
+0 \ma{} K \ma{} A \otimes_R M \ma{1 \otimes f} B \otimes_R M
+\]
+So we have
+\[
+0 \ma{} K_q \ma{} (A \otimes_R M)_q \ma{f \otimes 1} (B \otimes_R M)_q=B \otimes_{R_p} M_q
+\]
+But
+\[
+\begin{split}
+(A \otimes_R M)_q&=(A \otimes_R M) \otimes_S S_q \\
+&=A \otimes_R M_q \\
+&=A \otimes_R (R_p \otimes_{R_p} M_q) \\
+&=A_p \otimes_{R_p} M_q
+\end{split}
+\]
+so $K_q$ is the kernel of $f_p \otimes 1: A_p \otimes M_q \to B_p \otimes M_q$. Localization is flat so $A_p \to B_p$ is injective so that $f_p \otimes 1$ is injective so that $K_q=0$ for all maximal $q$ so that $K=0$. 
+\end{enumerate}
+\qed \\
+
+Keep in mind that we are heading toward proving that faithfully flat maps give surjections on prime spectra. 
+
+\subsection{Fibers}
+
+Let $\phi: R \to S$ be a ring map and $p \in \spec R$. Then the fiber over $p$ is
+\[
+(\phi^\#)^{-1}(p)=\{q \in \spec S \;|\; \phi^{-1}(q)=p\}=\{q \;|\; q \cap R=p\}
+\]
+This set is homeomorphic to $\spec(S \otimes_R k(p))$, where $k(p)$ is the residue field of $R$ at $p$. That is, $k(p)=R_p/pR_p=(R/p)_{\ov{p}}$
+
+\begin{prop}
+\[
+k(p)=R_p/pR_p=(R/p)_{\ov{p}}
+\]
+\end{prop}
+
+\noindent Proof: Let $T=S \otimes_R k(p)$. Then we have
+\[
+\begin{split}
+T&=S \otimes_R k(p) \\
+&=S/pS \otimes_R R_p \\
+&=(S/pS)_U
+\end{split}
+\]
+where $U=\phi(R\setminus p)$. We have a map $\phi: S \to T$ given by $s \mapsto \ov{s} \in S/pS$. So we have a composition of quotient maps and localization. 
+\[
+\spec T \cong\{q \in \spec S\;|\; q \supset pS, q \cap \phi(R\setminus p)=\emptyset\}=\{q \;|\; q \cap R=p\}
+\]
+we only need prove the equality. To prove $\supseteq$, note that if $q \cap R=p$ then $pS \subseteq q$. If $x \in q \cap \phi(R \setminus p)$. But then $x \in q \cap \phi(R)=\phi(p)$, a contradiction. To see $\subseteq$, if we have $q \supseteq pS$ and $q \cap \phi(R \setminus p)=\emptyset$, then $q \cap R \supseteq pS \cap R \supseteq p$. If $x \notin p$ then $x \notin q \cap R$ so that $q \cap R \subseteq p$ so that it must be $p$. \qed \\
+
+The fiber of $\phi: R \to S$ over $p \in \spec R$ is $S \otimes_R k(p)$. We showed that the spec of a fiber ring is the fiber of $\phi$ over $p$. 
+
+\begin{ex}
+If $R$ is a domain, then the prime $(0) \in \spec R$ is called the generic point as $\ov{(0)}=\spec R$. For a map $\phi: R \to S$, the generic fiber is a fiber over $(0)$, i.e. $\spec(S \otimes_R k((0))=S_U$, where $U=R \setminus\{0\}$. 
+\end{ex}
+
+\begin{ex}
+Suppose that $(R,\fm)$ is a local ring. Then the closed fiber of a map $\phi: R \to S$ is a fiber over $\fm$. Recall that maximal ideals are only closed in the Zariski topology. Then $\spec(S \otimes_R k(\fm))=\spec(S/\fm S)$.
+\end{ex}
+
+\begin{ex}
+If $(R,\fm)$ is a local ring and $\hat{R}$ the $\fm$-adic completion, the fibers of the map $R \to \hat{R}$ are called the formal fibers. The closed formal fiber is 
+\[
+\begin{split}
+\hat{R} \otimes_R k(\fm) &= \hat{R} \otimes_R R/\fm \\
+&= \hat{R}/\fm \hat{R} \\
+&=R/\fm
+\end{split}
+\]
+The generic formal fiber (if $R$ is a domain) is $\hat{R} \otimes_R Q(R)$. This can be very ugly indeed. 
+\end{ex}
+
+\begin{thmm}
+Let $\phi: R \to S$ is a ring map and $M$ an $S$-module, then
+\begin{enumerate}[(i)]
+\item if $M$ is faithfully flat over $R$ then $\phi^\#(\supp M)=\spec R$. That is for all $p \in \spec R$, there is a $q \in \spec S$ such that $M_q \neq 0$ and $q \cap R=p$. 
+\item If $M$ is a finitely generated $S$-module then $M$ is flat over $R$ and $\phi^\#(\supp M)$ contains all maximal ideals of $R$ if and only if $M$ is faithfully flat over $R$.
+\end{enumerate}
+\end{thmm}
+
+\noindent Proof:
+\begin{enumerate}[(i)]
+\item Let $p \in \spec R$. Since $M$ is faithfully flat, we know $M \otimes_R k(p) \neq 0$. So set $T=S \otimes_R k(p)$. Then 
+\[
+\begin{split}
+M' &\defeq M \otimes_R k(p) \\
+&=M \otimes_S S \otimes_R k(p) \\
+&= M \otimes_S T
+\end{split}
+\]
+is a nonzero $T$-module. Let $\tilde{q} \in \spec T$ be such that $(M')_{\tilde{q}} \neq 0$ and set $q= \tilde{q} \cap S$. Then 
+\[
+\begin{split}
+0 \neq (M')_{\tilde{q}} &=M' \otimes_S T_{\tilde{q}} \\
+&=M \otimes_S (S_q \otimes_{S_q} T_{\tilde{q}} ) \\
+&= M_q \otimes_{S_q} T_{\tilde{q}}
+\end{split}
+\]
+So $M_q \neq 0$ and $q \cap R=\tilde{q} \cap R=p$.
+
+\item This follows from (i). It is enough to show $M \otimes_R R/\fm \neq 0$ for all maximal $\fm \subset R$. Fix a maximal ideal $\fm$. By assumption, there is a $q \in \spec S$ with $q \cap R=\fm$ and $M_q \neq 0$. Since $M$ is finitely generated over $S$ so $M_q$ is finitely generated over $S_q$. Therefore by Nakayama's Lemma
+\[
+0 \neq M_q/qM_q =(M/q)_q
+\]
+So in particular, $M/qM \neq 0$. But $q \cap R=\fm$ so $\fm \subseteq q$ so $M/\fm M$ surjects to $M/qM$ so that $M/\fm M\neq 0$. 
+\end{enumerate}
+\qed \\
+
+\begin{cor}
+If $\phi: R \to S$ is faithfully flat, then $\phi^\#$ is surjective. 
+\end{cor}
+
+\begin{cor}
+If $U$ is multiplicatively closed closed set in $R$ and $R \neq R_U$, then $R \to R_U$ is flat but never faithfully flat. 
+\end{cor}
+
+\noindent Proof: Inverting a nonunit $x \in R$ vaporizes maximal ideals containing $x$. \qed \\
+
+\begin{cor}
+If $(R,\fm)$ is local then $\dim R \leq \dim \hat{R}$.
+\end{cor}
+

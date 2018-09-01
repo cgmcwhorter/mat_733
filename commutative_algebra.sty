@@ -1,0 +1,118 @@
+% !TEX root = commutative_algebra.tex
+
+
+% Operators, Functions, and the Like
+
+\DeclareMathOperator{\gal}{Gal}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\trace}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\nil}{Nil}
+\DeclareMathOperator{\soc}{soc}
+\DeclareMathOperator{\tor}{tor}
+\DeclareMathOperator{\rad}{rad}
+\DeclareMathOperator{\ch}{char}
+\DeclareMathOperator{\tr}{trace}
+\DeclareMathOperator{\ann}{Ann}
+\DeclareMathOperator{\inn}{Inn}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\spec}{Spec}
+\DeclareMathOperator{\sheaf}{Sh}
+\DeclareMathOperator{\symm}{Sym}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\obj}{obj}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\tot}{Tot}
+\DeclareMathOperator{\cyl}{Cyl}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\supp}{Supp}
+\DeclareMathOperator{\ass}{Ass}
+\DeclareMathOperator{\minass}{MinAss}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\maxspec}{MaxSpec}
+\DeclareMathOperator{\htt}{ht }
+\DeclareMathOperator{\tdeg}{trdeg}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\dep}{depth}
+\DeclareMathOperator{\gr}{grade}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\pd}{pd}
+\DeclareMathOperator{\gldim}{gldim}
+\DeclareMathOperator{\Frac}{Frac}
+
+% Special Symbols
+  
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\bk}{\mathbbm{k}}
+\newcommand\fm{\frak m}
+\newcommand{\co}[2]{\widehat{#1}^{_{#2}}}
+\newcommand{\pf}{\noindent\emph{Proof: }}
+
+
+
+% Special Characters/Commands and Shortcuts
+
+\def\rddots{\cdot^{\cdot^{\cdot^{}}}}
+\newcommand{\ep}{\epsilon}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\syl}[2]{\text{Syl}_{#1}(#2)}
+\newcommand*{\defeq}{\stackrel{\text{def}}{=}}
+\newcommand{\ma}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\hra}{\lhook\joinrel\longrightarrow}
+\newcommand{\la}{\longrightarrow}
+\newcommand{\hard}[1]{$\star$ #1 $\star$}
+\newcommand{\smat}[4]{\left(\begin{smallmatrix} #1 & #2 \\ #3 & #4 \end{smallmatrix} \right)}
+\newcommand{\et}[1]{{#1}_\textnormal{\'et}} % etale site
+\newcommand{\plim}{\varprojlim}
+\newcommand{\dlim}{\varinjlim}
+\newcommand{\dt}[1]{#1_\cdot}
+\newcommand{\ddt}[1]{#1_{\cdot \cdot}}
+\newcommand{\udt}[1]{#1^\cdot}
+\newcommand{\dsim}{\rotatebox[origin=c]{90}{\sim}}
+\newcommand{\exc}{\noindent \textbf{Exercise: }}
+
+
+
+
+% Tate-Shafarevich groups
+%  \DeclareFontFamily{U}{wncy}{}
+%  \DeclareFontShape{U}{wncy}{m}{n}{<->wncyr10}{}
+%  \DeclareSymbolFont{mcy}{U}{wncy}{m}{n}
+%  \DeclareMathSymbol{\sha}{\mathord}{mcy}{"58}  
+
+
+% theorems, definitions, ...
+  \numberwithin{equation}{section}
+  \newtheorem{conj}[subsection]{Conjecture}
+  \newtheorem{cor}[subsection]{Corollary}
+  \newtheorem{lem}[subsection]{Lemma}
+  \newtheorem{prop}[subsection]{Proposition}
+  \newtheorem{thmm}[subsection]{Theorem}
+  \newtheorem{dfn}[subsection]{Definition}
+  \newtheorem{conject}[subsection]{Conjecture}
+  \theoremstyle{definition} % contents are not italic
+  \newtheorem{rem}[subsection]{Remark}
+  \newtheorem{ex}[subsection]{Example}
+  \declaretheorem[sibling=subsubsection, qed={\lower-0.3ex\hbox{$\triangleright$}}]{example}

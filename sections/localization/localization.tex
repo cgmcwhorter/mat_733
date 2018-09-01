@@ -1,0 +1,441 @@
+% !TEX root = ../../commutative_algebra.tex
+\newpage
+\section{Localizations and the Zariski Topology}
+\subsection{Localizations of Rings}
+
+
+We begin by recalling a few definitions:
+
+
+\begin{dfn}[Multiplicatively Closed]
+If $R$ is a ring with $S \subset R$, $S$ is said to be multiplicatively closed if
+	\begin{enumerate}[(i)]
+	\item $a,b \in S$ then $ab \in S$
+	\item $1 \in S$ (this is taken for convenience to avoid having to say it in each example)
+	\end{enumerate}
+\end{dfn}
+
+
+\begin{ex} \hfill
+\begin{enumerate}[(i)]
+	\item If $R$ is an integral domain, then $R \setminus \{0\}$ is multiplicatively closed.
+	\item If $I \lhd R$ is an ideal, then $S=R\setminus I$ is multiplicatively closed if and only if $I$ is a prime ideal. 
+	\item For any $a \in R$, $S=\{1,a,a^2,\cdots\}$ is multiplicatively closed. 
+	\end{enumerate}
+\end{ex}
+
+
+\begin{dfn}[Localization]
+Let $S \subset R$ be multiplicatively closed. The localization of $R$ at $S$ is a ring, denoted $R_S$, together with a ring homomorphism $i: R \to R_S$ satisfying
+	\begin{enumerate}[(i)]
+	\item $i(s)$ is a unit in $R_S$ for all $s \in S$
+	\item For any ring homomorphism $\phi: R \to A$ such that $\phi(s)$ is a unit in $A$ for every $s \in S$, there is a unique homomorphism $\psi: R_S \to A$ such that the following diagram commutes:
+	\[
+	\begin{tikzcd}
+	R \arrow{r}{i} \arrow[swap]{dr}{\phi} & R_S \arrow[dotted]{d}{\exists! \psi} \\
+	& A
+	\end{tikzcd}
+	\]
+\end{enumerate}
+The ring $R_S$ is also sometimes denoted $S^{-1}R$ or $R[S^{-1}]$ (since we have inverted the elements of $S$). Also, if $S=R\setminus P$ for some prime ideal $P$, we write $R_P$ instead of $R_{R \setminus P}$ or $R_S$. 
+\end{dfn}
+
+
+Note that the definition above does not show that such a ring even exists. We shall address existence after several canonical examples. 
+
+
+\begin{ex} \hfill
+	\begin{enumerate}[(i)]
+	\item If $S$ consists entirely of units, $R_S=R$ (this should perhaps be $\cong$ instead of $=$, but we will not bother with such tedium).
+	\item If $R$ is an integral domain and $S=R \setminus \{0\}$, then $R_S=Q(R)$ is the quotient field of $R$. This is called the field of fractions of $R$, $\Frac(R)$.
+	\item Let $a \in R$ and $S=\{1,a,a^2,\cdots\}$. Then $R_S \cong R[x]/(ax-1)$. To see why, consider the set $\{a^n \colon \N \cup \{0\}\}$, where we denote $a^0=1$. We want to invert all the elements of $S$, i.e. the set $\{a^n \colon \N \cup \{0\}\}$. If we want $a^n$ to be invertible for each $n \in \N$, it is sufficient to invert $a$. So one need only append to $R$ an element $x$ such that $ax=1$. But then $ax-1=0$, just as in the ring $R[x]/(ax-1)$. Of course, one should justify this intuitive reasoning at least one by explicitly constructing an isomorphism or by using the universal property.
+	\item If $a \in S$ is a zero divisor, say $ab=0$ with $0 \neq b \in R$. Now $i(0)=0$ because $i$ is a ring homomorphism which implies $0=i(0)=i(ab)=i(a)i(b)$. But as $i(a)$ is a unit in $R_S$, it must be that $i(b)=0$. But then $i: R \rightarrow R_S$ is not injective. 
+	\end{enumerate}
+\end{ex}
+
+
+One can show that if no element of $S$ is a zero divisor, then $i: R \to R_S$ is injective (this is an if and only if). Furthermore, show that if $0 \in S$, then $R_S$ is the zero ring. In fact, $R_S=0$ if and only if $0 \in S$ which implies $R_S=0$ if and only if $S$ contains nilpotent elements. These facts are more easily shown using the construction of $R_S$. 
+
+
+
+\subsection{The Construction of $R_S$}
+
+
+
+We define an equivalence relation on $R \times S$ by $(r_1,s_1) \sim (r_2,s_2)$ if and only if there is a $t \in S$ such that $t(r_1s_2-r_2s_1)=0$. We write $r/s$ for the class of $(r,s)$. With this notation, we have $r_1/s_1=r_2/s_2$ if and only if there is a $t \in S$ that kills the cross ratio. Define $R_S= (R \times S)/ \sim$ with map $i: R \to R_S$ given by $a \mapsto a/1$. Of course, one still needs to define operations to make $R_S$ into a ring. This works just as usual operations in $\Q$. Let $a/b, c/d \in R_S$. We define addition and multiplication as follows:
+	\[
+	\begin{split}
+	+&: \enskip \dfrac{a}{b} + \dfrac{c}{d}:= \dfrac{ad+bc}{bd} \\
+	\cdot&: \enskip \dfrac{a}{b} \cdot \dfrac{b}{d}:= \dfrac{ac}{bd}
+	\end{split}
+	\]
+One need check that these operations are well defined and turn $R_S$ into a commutative ring with $1=1/1$. For each $s \in S$, $s/1$ is a unit in $R_S$ (even in the `bad' case where $R_S$ is the zero ring). Now if $\phi: R \to A$ is a ring homomorphism sending every element of $S$ to a unit in $A$. Define a map $\psi: R_S \to A$ via $(r,s) \mapsto \phi(r)\phi(s)^{-1}$. It is routine to check that this map is well defined. The map $\psi$ is unique as every element of $R_S$ can be written as a product $(r/1)(s/1)^{-1}$. The value of $\psi$ on elements of the form $r/1$ is uniquely determined by $\phi$ as $\psi(r/1)=\psi(i(r))=\phi(r)$. As $\psi$ is a ring homomorphism, its values on the elements $s^{-1}=1/s$ for any unit $s$ is uniquely determined by $\psi(s)$. 
+
+
+\begin{ex} \hfill 
+	\begin{enumerate}[(i)]
+	\item If $R=\Z$ and $S=\Z\setminus \{0\}$, then $R_S=\Q$.
+	\item If $R=\Z$ and $S=R\setminus (5)$ (noting that the ideal $(5)$ is prime), then
+		\[
+		\begin{split}
+		R_S&= \{ r/s \;|\; r \in \Z, s \in \Z \setminus (5) \} \\
+		&= \{ r/s \;|\; s \text{ not divisible by } 5 \}.
+		\end{split}
+		\]
+	\item If $R=\Z$ and $S=\{1,2,4,8,16,\cdots\}$, then $R_S=\{r/s\;|\; s=2^k\}$.
+	\item If $R=k[x]$, where $k$ is a field, $P=(x+1)$ and $S=R \setminus P$, then
+		\[
+		\begin{split}
+		R_S&= \left\{ \frac{f(x)}{g(x)} \; \big| \; f(x) \in k[x], g(x) \in k[x] \setminus (x+1) \right\} \\
+		&= \left\{ \frac{f(x)}{g(x)} \; \big| \; x+1 \not\mid g(x) \right\} \\
+		&= \left\{ \frac{f(x)}{g(x)} \; \big| \; g(-1) \neq 0 \right\} \\
+		&=\text{ All rational functions defined at } x=-1
+		\end{split}
+		\]
+In particular, $R_S \subset k(x)$, the field of all rational functions.
+	\item $R=k[x,y]/(xy)$, where $k$ is a field, with $S=\{1,x,x^2,\cdots\}$ (really $\overline{1},\overline{x},\cdots$). In $R_S$, $x$ becomes a unit. We have $xy=0$ so $y=0$ in $R_S$. That is, $x/1$ is a unit, $xy/1=0/1$ so $y/1=0/1$. Then $R_S=k[x,x^{-1}]$.
+	\end{enumerate}
+\end{ex}
+
+
+
+\subsection{Prime Spectrum} 
+
+
+
+\begin{dfn}[Prime Spectrum]
+The (prime) spectrum of $R$, denoted $\spec R$, is the set of all prime ideals in $R$.
+\end{dfn}
+
+The spectrum of a ring is one of the primary bridges between Commutative Algebra and Algebraic Geometry. 
+
+\begin{prop}
+If $\phi: A \to B$ is a ring homomorphism and $P$ is a prime ideal of $B$, i.e. $P \in \spec B$, then $\phi^{-1}(P)$ is a prime ideal in $A$, i.e. $\phi^{-1}(P) \in \spec A$. 
+\end{prop}
+
+\pf If $a,a' \in \phi^{-1}(P)$, then $\phi(aa') \in P$ which implies that $\phi(a)\phi(a') \in P$. So one of $\phi(a),\phi(a')$ are in $P$ implying one of $a,a'$ are in $\phi^{-1}(P)$. Then there is an induced map $\phi^{\#}: \spec B \to \spec A$ given by $P \mapsto \phi^{-1}(P)$. \qed \\
+
+We don't in general get a function $\spec A \to \spec B$. If $Q$ is a prime ideal of $A$, then $\phi(Q)$ is probably not even an ideal of $B$, nevertheless a prime ideal!
+
+
+\begin{rem}
+If $\phi$ is surjective, we get a map. Let $I \lhd R$ be an ideal, by Noethers First Isomorphism Theorem, we have a map $\pi: R \to R/I$, the canonical projection. Then Noethers Fourth Isomorphism Theorem, we have an inclusion preserving bijection
+	\[
+	\{\text{ideals }I \lhd R \text{ containing }I \} \leftrightarrow \{\text{ideals }\overline{J} \text{ in }R/I \}
+	\]
+given by $J \mapsto \pi(J)$ and $\overline{J} \mapsto \pi^{-1}(J)$. This bijection preserves prime ideals in both directions. So we get a bijection between $P \in \spec R$ such that $P \supset I$ and $\spec(R/I)$. Note that this function is injective: if $\phi^{\$}(p)=\phi^{\#}(q)$, then $\phi^{-1}(p)=\phi^{-1}(q)$ so that applying $\phi$ yields $p=q$. 
+\end{rem}
+
+We want to create a similar correspondence for localization. If $S \subset R$ is multiplicatively closed, we have a ring homomorphism $i: R \to R_S$ given by $a \mapsto a/1$. If $I \lhd R$ is an ideal, we get $I_S=\{a/s \;|\; a \in I, s \in S\}$. Observe that this is (probably) bigger than $i(I)$ as it is the closure of $i(I)$ under multiplication by elements of $R_S$. One should verify that $I_S$ is an ideal of $R_S$. 
+
+\begin{ex}
+Let $R=k[x,y]/(xy)$, where $k$ is a field. Let $S=\{1,x,x^2,\cdots\}$, $I=(y)$, and $J=(x)$. Both ideals $I,J$ are prime in $R$. Why? To see that $I$ is prime in $R$, note that
+\[
+R/I \cong (k[x,y]/(xy))/(y) \cong (k[x,y]/(y))/(xy) \cong k[x]
+\]
+as $(xy)$ is already 0 in the right congruence. But this is an integral domain so that $I$ is prime in $R$. The same holds true mutatis mutandis for $J$. Note that $I_S=(0)$ in $R_S$ since $y/1=0/1$ in $R_S$. Furthermore, $J_S$ contains a unit - $x/1$ (as $x$ is invertible) - so $J_S=R_S$.
+\end{ex}
+
+This example is an example of ``bad behavior". But this does not rule out the injectivity of the function $I \to I_S$ for prime ideals. Note that we want the ideal to contain no units. If this is the case, then the ideal under this function will either ``survive" or blow-up to $R_S$. 
+
+\begin{thmm}
+Let $S \subseteq R$ be multiplicatively closed. Then there is a bijection
+\[
+\{P \in \spec R \;|\; P \cap S\} \leftrightarrow \{Q \in \spec(R_S)\} 
+\]
+given by $P \mapsto P_S$ in the forward direction and $Q \mapsto i^{-1}(Q)=i^{\#}(Q)$ in the reverse direction. 
+\end{thmm}
+
+\noindent Proof: Let $P \in \spec R$, then $P_S$ is prime in $R_S$. Take $a/s,b/t \in R_S$ such that $\frac{a}{s} \frac{b}{t} \in P_S$. Then $\frac{ab}{st} \in p/w$ for some $p \in P$ and $w \in S$. Then there is a $u \in S$ such that $u(abw-stp)=0$. Therefore, $uabw=ustp$. Writing the left as $uw \cdot ab$ and observing the right has $ustp \in P$, this shows that $uw \in P$ or $ab \in P$. But $u,w \in S$, which is multiplicatively closed, so that $uw \in S$. But this shows that $uw \notin P$. Then $ab \in P$ so that $a \in P$ or $b \in P$. Therefore, $a/s \in P_S$ or $b/t \in P_S$. 
+
+We know that $q \mapsto i^{-1}(Q)=i^{\#}(Q)$ takes primes to primes. We only need check that they satisfy the given condition: $i^{\#}(Q) \cap S = \emptyset$. If this is not the case, then $Q=R_S$, which is not the case. So to complete the proof, we only need check that these maps are inverses. 
+
+First, we show $P=i^{-1}(P_S)$. Let $r \in P$, then $r/1 \in P_S$ so $r \in i^{-1}(P_S)$. So $P \subset i^{-1}(P_S)$. Take $r \in i^{-1}(P_S)$, then $i(r) \in P_S$. But $i(r)=r/1$ so that $r/1=a/s$ for some $a \in P$ and $s \in S$. So there is a $u \in S$ such that $u(rs-a)=0$. But then $urs=ua$. Writing the left side as $us \cdot r$ and observing that $ua \in P$, this shows that $us \in P$ or $r \in P$. But as above, $us \notin P$ so that $r \in P$. 
+
+Finally, we show $Q=i^{-1}(Q_S)$. Let $r \in Q$. Then $r/1 \in Q_S$ so that $r \in i^{-1}(Q_S)$, showing that $Q \subset i^{-1}(Q_S)$. Let $r \in Q_S$. Then $r= p/s$, where $p \in P$ and $s \in S$. But then $i^{-1}(r)=i^{-1}(p/s)=p \in Q$ so that $i^{-1}(Q_S) \subset Q$. \qed \\
+
+Consider the special case of $S=R \setminus P$, for some prime ideal $P \in \spec R$. 
+\[
+\spec(R_P) \leftrightarrow \{p \in \spec R \;|\; p \in P\}
+\]
+In particular, $R_P$ has a unique maximal ideal, namely $P_S$. This is why this process is called \emph{localization} (recalling that a local ring is a ring which contains a unique maximal ideal). Some authors, however, call this quasi-local leaving the term local to mean quasi-local and noetherian. 
+
+\begin{rem}
+The notation is clunky so that we introduce a new notation. For a ring homomorphism $A \to B$ and $I \subset A$, we write $IB$ to be the smallest ideal in $B$ containing the image of $I$, i.e. the ideal generated by the image of $I$.
+\end{rem}
+
+\begin{ex}
+$R_P$ is a local ring with maximal ideal $PR_P$. 
+\end{ex}
+
+\begin{cor}
+If $R$ is noetherian or artinian, so is $R_S$ for any multiplicatively closed subset $S \subset R$. 
+\end{cor}
+
+\begin{lem}
+Localization commutes with quotients, i.e.
+\[
+R_S/I_S \cong (R/I)_{\overline{S}}
+\]
+for any $I \lhd R$ and multiplicatively closed $S \subset R$, where $\overline{S}$ denotes the image of $S$ in $R/I$. 
+\end{lem}
+
+\noindent Proof: Let $\phi: R_S/I_S \to (R/I)_{\overline{S}}$ be defined by $r/s+I_S \mapsto \overline{r}/\overline{s}$. We show that this is well defined. Suppose that $r/s+I_S=r'/s'+I_S$ so that $(r/s-r'/s')+I_S=I_S$. 
+
+
+
+
+
+\newpage
+
+
+
+
+
+
+
+\begin{ex}
+Let $P \in \spec R$. 
+\[
+R_P/PR_P \cong (R/P)_{\overline{P}}
+\]
+One the left, we have a field (as we have a quotient by a maximal ideal). On the right, we have $R/P$ is a domain and $\overline{P}=(0)$. So localizing at $\overline{P}$ means that every element outside of $(0)$ has been inverted. But then we have a field. This field is the quotient field of $R/P$. We refer to this as the residue field at $P$, denoted
+\[
+\kappa(P)=R_P/PR_P=(R/P)_{\overline{P}}
+\]
+\end{ex}
+
+\subsection{The Residue Field \& Krull's Theorem}
+
+\begin{dfn}[Residue Field]
+The residue field of $R$ at a prime ideal $P$, denoted $\kappa(P)$, is 
+\[
+\kappa(P)\defeq R_P/pR_P \cong (R/P)_{\overline{P}}
+\]
+\end{dfn}
+
+\begin{ex}
+Consider the ring $R=k[x,y]$. If $P=(0)$, then $R_P=k(x,y)$, the field of rational functions. The unique maximal ideal of this is 0 (as it is a field) so that $\kappa(P)=k(x,y)$. If we take $P=(x,y)$, then $R/P=k$, as $k$ is a field its unique maximal ideal is 0 so that $\kappa(P)=k$. Notice also
+\[
+R_P=k[x,y]_{(x,y)}=\left\{\frac{f(x,y)}{g(x,y)} \;|\; f(x,y), \in k[x,y], g(x,y) \notin (x,y) \right\}
+\]
+But $g(x,y) \notin (x,y)$ if and only if $g(x,y)$ has nonzero constant term. But this happens if and only if $g(0,0) \geq 0$. So $R_P$ is simply all rational functions defined at $(0,0)$. If $P=(x)$, we have 
+\[
+\kappa(P)=(R/(x))_{(\overline{x})}=k[y]_{\overline{(x)}}=k[y]_0=k(y)
+\]
+\end{ex}
+
+\begin{dfn}
+For an ideal $I \lhd R$, define
+\[
+V(I)=\{p \in \spec R \;|\; p \supset I\}
+\]
+This is in one-to-one correspondence with $\spec(R/I)$.
+\end{dfn}
+
+Our goal is to show $V(I)$ defines a topology on $\spec R$ - the Zariski topology. Recall that $\sqrt{I}=\{ r \in R \;|\; r^n \in I \text{ for some }n \geq 1\}$ is the radical of $I$. If $I=0$, $\sqrt{0} \defeq \nil(R)$, the nilradical, i.e. the set of nilpotent elements. We know that $\sqrt{I}$ is an ideal of $R$. 
+
+\begin{thmm}[Krull's Theorem]
+\[
+\sqrt{I}= \bigcap_{p \in V(I)} p
+\]
+i.e., the radical of $I$ is the intersection of all prime ideals $p$ containing $I$.
+\end{thmm}
+
+\noindent Proof: If $I=(0)$, we must show $\nil(R)=\cap_{p \in \spec R} p$. Suppose $r \in \nil(R)$. Then $r^n=0$ for some $n$. As $r^n \in p$ for all primes $p$, this shows immediately upon induction upon the power of $r$ using the fact that these ideals are prime that $r \in p$ for all $p$ so that $r \in \cap p$. Now suppose that $r \in \cap_{p \in \spec(R)} p$ and assume that $r$ is not nilpotent. Let $S=\{1,r,r^2,\cdots\}$. Then as $r$ is not nilpotent, $0 \notin S$. So the localization $R_S$ is not the zero ring. So $R_S$ has a maximal ideal by Zorn's Lemma. In particular, $\spec R_S$ is nonempty (as this maximal ideal must also be prime). But $\spec R_S$ is in one-to-one correspondence with the set $\{p \in \spec R\;|\; p \cap S \neq \emptyset\}$. So there is some prime $p \in \spec R$ such that $r^n \notin p$ for all $n$. But $r \in \cap_{p \in \spec R} p$ so it must be in all $p$, this is a contradiction. 
+
+We can no do the general case. Let $\pi: R \to R/I$ be the canonical projection. Then $\sqrt{I}$ is $\pi^{-1}(\nil(R/I))=\pi^{-1}(\cap_{\overline{p} \in \spec(R/I)} \overline{p}$ by the particular case. But this is $\cap_{\overline{p} \in \spec(R/I)} \pi^{-1}(\overline{p})=\cap_{p \i V(I)} p$. \qed \\
+
+\subsection{Zariski Topology}
+
+\begin{prop} $V(I)$ has the following properties:
+\begin{enumerate}[(i)] 
+\item $V((0))=\spec R$
+\item $V(R)=\emptyset$
+\item $\cap_{\alpha \in \Lambda} V(I_\alpha)=V\left(\sum_{\alpha \in \Lambda} I_\alpha\right)$
+\item $\cup_{j=1}^n V(I_j)=V \left( \cap_{j=1}^n I_j \right)$
+\item $V(I)=V(J)$ if and only if $\sqrt{I}=\sqrt{J}$
+\end{enumerate}
+\end{prop}
+
+\noindent Proof:
+\begin{enumerate}
+\item[(i),(ii)] This is routine.
+\item[(iii)] This follows similarly to the arguments we have made previously.
+\item[(iv)] Suppose that $p \in V(I_1) \cup \cdots \cup V(I_n)$. So $p \in V(I_k)$ for some $k$ if and only if $p \in V(I_1 \cap \cdots \cap I_n)$. Note this uses the fact that $p$ is prime: if $p \supseteq I_1\cap \cdots \cap I_n$ but $p \not\supseteq I_k$ for any $k=1,2,\cdots,n$, then there would be a $a_k \in I_k \setminus p$ for all $k$. Then $a_1\cdots a_n \in I_1 \cap \cdots \cap I_n \subseteq p$ but $a_i \notin p$ for all $i$, contradicting the fact that $p$ is prime.
+\item[(v)] If $V(I)=V(J)$, then $\sqrt{I}=\cap_{p \in V(I)} p = \cap_{p in V(J)} p = \sqrt{J}$, where the middle equality follows by assumption and the end equalities follow from the Krull Intersection Theorem. On the other hand, if $\sqrt{I}=\sqrt{J}$, then $I \subseteq \sqrt{J}$ so that any prime containing $\sqrt{J}$ contains $I$. So $V(\sqrt{J}) \subseteq V(I)$. The other direction is shown mutatis mutandis so that $V(I)=V(J)$.
+\end{enumerate}
+\qed \\
+
+Notice that the preceding proposition shows that the $V(I)$ are the closed sets in some topology.
+
+\begin{dfn}[Zariski Topology]
+The Zariski topology on $\spec R$ has closed sets $V(I)$ for any $I$, an ideal of $R$.
+\end{dfn}
+
+Note that this topology is well defined by the proposition. The Zariski Topology also satisfies the $T_0$ axis: open sets separate points. Why? If $p \neq q \in \spec R$, then if $p \supset q$, we have open set $(\spec R \setminus V(p))=U$ with $p \notin U$ and $q \in U$ as $q \not\supset q$. If $p\not\supset q$, then the open set $U=\spec R \setminus V(q)$ is such that $q \notin U$ and $p \in U$. Furthermore, notice that the Zariski Topology does not satisfy the $T_1$ axioms: that singleton sets are closed. To see this, let $p \in \spec R$. We know that $\{p\}$ is closed if and only if $\{p\}=V(I)$ for some ideal $I$ if and only if $\{p\}=V(p)$. But then $p$ is maximal. So the only closed points of $\spec R$ are maximal ideals. 
+
+\begin{cor}
+$\overline{\{p\}}=V(p)$
+\end{cor}
+
+The Zariski topology is also quasi-compact: every open covering has a finite subcovering. Note that Bourbaki defines Hausdorff as points being closed, quasi-compact as being that open covers have finite subcoverings, and compact being Hausdorff and quasi-compact. Note that the Zariski topology is not Hausdorff if $R$ has any non maximal prime ideals so we truly need the distinction between quasi-compact and compact. This distinction essentially only exists for algebraic geometers and algebraic number theorists since they are essentially the only topology they consider is the Zariski topology and it is not Hausdorff. 
+
+\begin{prop}
+The Zariski topology is quasi-compact.
+\end{prop}
+
+\noindent Proof: Let $X=\spec R$ for convenience. Let $\{U_\alpha\}$ be an open cover of $X$. For each $\alpha$, $U_\alpha=X \setminus V(I_\alpha)$ for some ideal $I_\alpha$. We have $X=\cup_\alpha U_\alpha$. So
+\[
+\begin{split}
+X&=\bigcup_{\alpha} U_\alpha \\
+&=\bigcup_{\alpha} (X \setminus V(I_\alpha)) \\
+&=X \setminus \bigcap_{\alpha} V(I_\alpha) \\
+&=X \setminus V\left(\sum_\alpha I_\alpha \right)
+\end{split}
+\]
+Therefore, $V\left(\sum_{\alpha} I_\alpha \right)=\emptyset$. If no proper prime ideal contains $\sum_{\alpha} I_\alpha $, as all maximal ideals are prime, it must be that $\sum_{\alpha} I_\alpha =R$. Then $1 \in \sum_{\alpha} I_\alpha $. As the sum representing 1 must be finite, we must have $1=a_1+\cdots+a_n$, where $a_i \in I_{\alpha_i}$. But then $I_{\alpha_1}+\cdots+I_{\alpha_n}=R$. Reversing the equalities from before implies that
+\[
+X= \bigcup_{i=1}^n (X \setminus V(I_{\alpha_i}))= \bigcup_{i=1}^n U_{\alpha_i}
+\]
+\qed \\
+
+\begin{dfn}[Principal Open Sets]
+For $a \in R$, let $D(a)$ denote the set
+\[
+D(a)=\spec R \setminus V((a))= \{p \in \spec R\;|\; a \notin p\}
+\]
+Note that this is an open set in $\spec R$. If $\spec R \setminus V(I)$ is an open set and $I$ is generated by $\{a_\alpha\}_{\alpha \in \Lambda}$, then
+\[
+\begin{split}
+U&= \spec R \setminus V(I) \\
+&= \spec R \setminus V\left(\sum_\alpha a_\alpha \right) \\
+&=\spec R \setminus \bigcap_\alpha V((a_\alpha)) \\
+&=\bigcup_\alpha \spec R \setminus V((a_\alpha)) \\
+&=\bigcup_\alpha D(a_\alpha)
+\end{split}
+\]
+The family of principal open sets, $D(a)$, form a basis for the Zariski topology. 
+\end{dfn}
+
+Recall that if $\varphi: A \to B$ is a ring map, we get $\varphi^{\#}: \spec B \to \spec A$ given by $q \mapsto \varphi^{-1}(q)$. 
+
+\begin{prop}
+$\varphi^{\#}$ is continuous in the Zariski topology. 
+\end{prop}
+
+\noindent Proof: We need to show that the preimage of open sets are open or the preimage of closed sets are closed. Take a closed set $V(I) \subseteq \spec A$.
+\[
+\begin{split}
+q \in (\varphi^{\#})^{-1}(V(I)) &\leftrightarrow \varphi^{\#}(q) \in V(I) \\
+&\leftrightarrow \varphi^{-1}(q) \supseteq I \\
+&\leftrightarrow q \supseteq \varphi(I) \\
+&\leftrightarrow IB \subseteq q \\
+&\leftrightarrow q \in V(IB)
+\end{split}
+\]
+which shows the primage of the closed set $V(I)$ is the closed set $V(IB)$. \qed \\
+
+\begin{cor}
+The association $\phi$ given by $R \mapsto \spec R$ and $A \to B \mapsto \varphi^{\#}: \spec B \to \spec A$ is a contravariant functor from Commutative Rings to Topological Spaces. 
+\end{cor}
+
+\noindent Proof: This is routine verification. \qed \\
+
+\begin{rem} There are two useful things to note: \\
+\begin{enumerate}[(i)]
+\item Topological spaces coming from commutative rings are called affine schemes. A scheme is obtained by gluing together affine schemes. 
+
+\item The corollary explains why we have to have non-closed points in the Zariski topology. We could try to define a functor from Commutative Rings to Topological spaces by $R \mapsto \text{MaxSpec }R$. But this is not a functor - ring homomorphisms to not necessarily map to continuous maps. It is a good exercise to find a ring map $A \to B$ that does not induce a continuous map $\text{MaxSpec }B \to \text{MaxSpec }A$. 
+\end{enumerate}
+\end{rem}
+
+\subsection{Localization of Modules}
+
+\begin{dfn}[Localization of Modules]
+Let $M$ be a $R$-module and $S \subset R$ be a multiplicatively closed set. Put $M_S=\{x/s\;|\; x \in M, s \in S\}$. Specifically, this is an equivalence class $x/s \equiv y/t$ if and only if there is a $u \in S$ such that $u(xt-sy)=0$. Then $M_S$ is a $R_S$-module via $r/s \cdot x/t \defeq (rx)/(st)$. Note there is a canonical map $M \to M_S$ taking $x \in M$ to $x/1$.
+\end{dfn}
+
+\begin{rem}
+\begin{enumerate}[(i)]
+\item If $S$ consists of nonzero divisors on $M$, then $x \mapsto x/1$ is injective.
+\item If there is $s \in S$ such that $sM=0$, then $M_S=0$.
+\end{enumerate}
+\end{rem}
+
+\begin{dfn}[Support]
+The support of $M$ is the set 
+\[
+\supp M=\{p \in \spec R \;|\; M_p \neq 0\}
+\]
+\end{dfn}
+
+Notice the second remark above says that if $\ann M \not\subseteq p$, then $M_p=0$. In other words, $\supp M \subseteq V(\ann_R M)$. 
+
+\begin{prop}
+If $M$ is finitely generated, then $\supp M=V(\ann_R M)$. 
+\end{prop}
+
+\noindent Proof: $M_S=0$ if and only if every $x \in M$ is annihilated by some $s \in S$. If $p \notin \supp M$, then $M_p=0$. So every element of $M$ is killed by some $s \in R \setminus p$. 
+
+Now suppose $x_1,\cdots,x_n$ generates $M$. So every element is of the form $r_1x_1+\cdots+r_nx_n$ for some $r_i \in R$. We know that $x_i$ is killed by some $s_i \in R\setminus p$. Then $\prod_{i=1}^n s_i$ kills every element of $M$ and $\prod_{i=1}^n s_i \in R \setminus p$. So $p \notin V(\ann_R M)$. \qed \\
+
+\begin{cor}[Local ``Zeroness"]
+The following are equivalent for a $R$-module $M$:
+\begin{enumerate}[(i)]
+\item $M=0$
+\item $M_p=0$ for all $p \in \spec R$
+\item $M_{\fm}=0$ for all maximal ideals $\fm$
+\end{enumerate}
+\end{cor}
+
+\noindent Proof: We first prove this using the previous proposition for finitely generated $R$-modules $M$ (the (iii) $\to$ (i) part requires this). 
+\begin{enumerate}
+\item[(i)$\to$(ii):] Routine
+\item[(ii)$\to$(iiI):] Maximal ideals are prime.
+\item[(iii)$\to$(i):] We must have $\supp M$ containing no maximal ideals then $\ann M$ is not contained in any maximal ideal. The only such ideal is the whole ring so $\ann_R M=R$. So $IM=0$, then $M=0$.
+\end{enumerate}
+Now let $M$ be an arbitrary $R$-module. Let $x \in M$. Then we have $Rx \hra$ is exact. Localizing at any maximal ideal $\fm$
+\[
+0 \ma (Rx)_{\fm} \ma M_{\fm} =0
+\]
+This implies $(Rx)_{\fm}=0$ for all $x$ and $\fm$. So by the finitely generated case, we know that $Rx=0$ for all $x$. That is, $M=0$. \qed \\
+
+\begin{prop}
+\[
+M_S \cong M \otimes_R R_S
+\]
+In fact, every element of $M \otimes_R R_S$ can be written as a simple tensor: $x \otimes r/s$.
+\end{prop}
+
+Notice that the proposition states that localization is a tensor product. So localization is a functor $R-\text{mod} \to R_S-\text{mod}$ given by $M \mapsto M_S$ and $M\ma{f} N \mapsto M_S \ma{f/1} N_S$ where we have $\frac{f}{1}\left(\frac{x}{s}\right) \defeq \frac{f(x)}{s}$. Notice that
+\[
+\frac{r}{s} \frac{f}{1}\left(\frac{x}{t}\right) = \frac{r}{s} \frac{f(x)}{t}=\frac{rf(x)}{st}=\frac{f(rx)}{st}=\frac{f}{1} \left( \frac{r}{s} \frac{x}{t} \right)
+\]
+so $\frac{f}{1}$ is $R_S$-linear. Note that there are still things to show to prove this fact but they are routine verifications. 
+
+\begin{prop}
+Localization is an exact functor, i.e. if 
+\[
+0 \ma{} A \ma{f} B \ma{g} C \ma{} 0
+\]
+is a short exact sequence, then
+\[
+0 \ma{} A_S \ma{f/1} B_S \ma{g/1} C_S \ma{} 0
+\]
+is a short exact sequence.
+\end{prop}
+
+\noindent Proof: We will show that for any $R$-map $f: M \to N$ that localization preserves images and kernels, i.e.
+\begin{enumerate}[(i)]
+\item $\ker f/1=(\ker f)_S$ \\
+\item $\im f/1=(\im f)_S$
+\end{enumerate}
+
+Suppose that $\frac{x}{s} \in \ker f/1$. Then $\frac{f}{1}\left(\frac{x}{s}\right)=\frac{0}{1}$ so that $\frac{f(x)}{s}=\frac{0}{1}$. Then there is a $u \in S$ such that $u(f(x)-0)=0$. But then this implies $uf(x)=0$ so that $f(ux)=0$. But then $ux \in \ker f$ so that $\frac{ux}{us}=\frac{x}{s} \in (\ker f)_S$. Now suppose that $\frac{x}{s} (\ker f)_S$. Then $\frac{f(x)}{s}=\frac{0}{1}$. But then $\frac{f}{1}\left(\frac{x}{s}\right)=\frac{0}{1}$ so that $\frac{x}{s} \in \ker f/1$. The proof of (ii) follows similarly. \qed \\
+
+\begin{cor}
+A localization $R_S$ is a flat $R$-algebra. That is, the functor $- \otimes_R R_S$ is exact. 
+\end{cor}
+
+Not that this functor is not generally faithfully flat since localization can send nonzero modules to 0. 
